@@ -8,6 +8,9 @@
  */
 
 import React, { Component } from "react";
+import { Provider } from "react-redux";
+import { store } from "./js/redux/store.js";
+
 import {
   AppRegistry,
   Text,
@@ -20,7 +23,7 @@ import {
 import { ViroVRSceneNavigator, ViroARSceneNavigator } from "react-viro";
 
 import Login from "./js/components/Login";
-import ImageUpload from "./js/components/ImagePicker";
+// import ImageUpload from "./js/components/ImagePicker";
 
 /*
  TODO: Insert your API key below
@@ -31,16 +34,16 @@ export default class ViroSample extends Component {
     super();
   }
 
-  // Replace this function with the contents of _getVRNavigator() or _getARNavigator()
-  // if you are building a specific type of experience.
   render() {
     return (
-      <View style={localStyles.outer}>
-        <View style={localStyles.inner}>
-          {/* <Login /> */}
-          <ImageUpload />
+      <Provider store={store}>
+        <View style={localStyles.outer}>
+          <View style={localStyles.inner}>
+            <Login />
+            {/* <ImageUpload /> */}
+          </View>
         </View>
-      </View>
+      </Provider>
     );
   }
 }
