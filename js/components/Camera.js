@@ -57,11 +57,9 @@ class UseCamera extends React.Component {
           <Right />
         </Header>
         <View style={styles.container}>
-          <Text
-            title="Take A Photo"
-            style={{ color: "#3fa4f0" }}
-            onPress={this.takePhoto}
-          ></Text>
+          <Text style={{ color: "#3FA4F0" }} onPress={this.takePhoto}>
+            Take A Photo
+          </Text>
         </View>
       </Container>
     );
