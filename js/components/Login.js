@@ -30,9 +30,9 @@ import { ViroVRSceneNavigator, ViroARSceneNavigator } from "react-viro";
 
 import { connect } from "react-redux";
 
-import { selectLogOutRender } from "../redux/render/render.selectors";
+import { selectNavigator } from "../redux/render/render.selectors";
 
-import { renderLogOut, renderLogIn } from "../redux/render/render.action";
+import { navigate } from "../redux/render/render.action";
 
 import HomePage from "./Homepage";
 
@@ -41,6 +41,7 @@ import Signup from "./Signup";
 import Profile from "./Profile";
 
 import ImageUpload from "./ImagePicker";
+import UseCamera from "./Camera";
 
 var sharedProps = {
   apiKey: "API_KEY_HERE"
@@ -57,6 +58,8 @@ var REACT_NATIVE_SIGNUP = "SIGNUP";
 var REACT_NATIVE_HOME = "REACT_NATIVE_HOME";
 var PROFILE = "PROFILE";
 var IMAGE_UPLOAD = "IMAGE_UPLOAD";
+var LOGIN_PAGE = "LOGIN_PAGE";
+var CAMERA_PAGE = "CAMERA_PAGE";
 
 // This determines which type of experience to launch in, or UNSET, if the user should
 // be presented with a choice of AR or VR. By default, we offer the user a choice.
@@ -74,29 +77,30 @@ class Login extends Component {
     this._getARNavigator = this._getARNavigator.bind(this);
     // this._getVRNavigator = this._getVRNavigator.bind(this);
     this._getReactNativeHome = this._getReactNativeHome.bind(this);
-    this._getExperienceButtonOnPress = this._getExperienceButtonOnPress.bind(this);
+    this._getExperienceButtonOnPress = this._getExperienceButtonOnPress.bind(
+      this
+    );
     this._getProfilePage = this._getProfilePage.bind(this);
     this._getImageUpload = this._getImageUpload.bind(this);
     this._exitViro = this._exitViro.bind(this);
   }
   render() {
-    if (
-      this.props.selectLogOutRender === true &&
-      this.state.navigatorType === UNSET
-    ) {
+    if (this.props.selectNavigator === LOGIN_PAGE) {
       return this._getExperienceSelector();
-    // } else if (this.state.navigatorType == VR_NAVIGATOR_TYPE) {
-    //   return this._getVRNavigator();
-    } else if (this.state.navigatorType === AR_NAVIGATOR_TYPE) {
+      // } else if (this.state.navigatorType == VR_NAVIGATOR_TYPE) {
+      //   return this._getVRNavigator();
+    } else if (this.props.selectNavigator === AR_NAVIGATOR_TYPE) {
       return this._getARNavigator();
-    } else if (this.props.selectLogOutRender === false) {
+    } else if (this.props.selectNavigator === REACT_NATIVE_HOME) {
       return this._getReactNativeHome();
-    } else if (this.state.navigatorType === REACT_NATIVE_SIGNUP) {
+    } else if (this.props.selectNavigator === REACT_NATIVE_SIGNUP) {
       return this._getReactNativeSignup();
-    } else if (this.state.navigatorType === PROFILE) {
+    } else if (this.props.selectNavigator === PROFILE) {
       return this._getProfilePage();
-    } else if (this.state.navigatorType === IMAGE_UPLOAD) {
+    } else if (this.props.selectNavigator === IMAGE_UPLOAD) {
       return this._getImageUpload();
+    } else if (this.props.selectNavigator === CAMERA_PAGE) {
+      return this._getCameraPage();
     }
   }
 
@@ -111,38 +115,55 @@ class Login extends Component {
           </Body>
           <Right />
         </Header>
-        <View style={{ alignItems: "center" }}>
-          <Image
-            source={require("../res/logo.png")}
-            style={{ height: 200, width: 200 }}
-          />
-        </View>
         <Content>
-          <Form>
-            <Item floatingLabel>
-              <Label>Username</Label>
-              <Input />
-            </Item>
-            <Item floatingLabel last>
-              <Label>Password</Label>
-              <Input />
-            </Item>
-          </Form>
-          <Button block light style={{ marginBottom: 30 }}>
-            <Text>Login</Text>
-          </Button>
+          <View style={{ alignItems: "center" }}>
+            <Image
+              source={require("../res/logo.png")}
+              style={{ height: 200, width: 200 }}
+            />
+          </View>
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            <Form
+              style={{
+                width: 250
+              }}
+            >
+              <Item floatingLabel>
+                <Label>Username</Label>
+                <Input />
+              </Item>
+              <Item floatingLabel last>
+                <Label>Password</Label>
+                <Input />
+              </Item>
+            </Form>
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
+              <Button
+                block
+                light
+                style={{
+                  margin: 20,
+                  width: 250
+                }}
+              >
+                <Text>Login</Text>
+              </Button>
+            </View>
+          </View>
           <View style={styles.outer}>
             <TouchableHighlight
               style={styles.buttons}
-              onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
-              underlayColor={"#68a0ff"}
-            >
-              <Text style={styles.buttonText}>AR</Text>
-            </TouchableHighlight>
-
-            <TouchableHighlight
-              style={styles.buttons}
-              onPress={this.props.renderLogIn}
+              onPress={() => {
+                this.props.navigate(REACT_NATIVE_HOME);
+              }}
               underlayColor={"#68a0dd"}
             >
               <Text style={styles.buttonText}>HOMEPAGE</Text>
@@ -150,28 +171,13 @@ class Login extends Component {
 
             <TouchableHighlight
               style={styles.buttons}
-              onPress={this._getExperienceButtonOnPress(REACT_NATIVE_SIGNUP)}
+              onPress={() => {
+                this.props.navigate(REACT_NATIVE_SIGNUP);
+              }}
               underlayColor={"#68a0dd"}
             >
               <Text style={styles.buttonText}>SIGN UP</Text>
             </TouchableHighlight>
-
-            <TouchableHighlight
-              style={styles.buttons}
-              onPress={this._getExperienceButtonOnPress(PROFILE)}
-              underlayColor={"#68a0dd"}
-            >
-              <Text style={styles.buttonText}>PROFILE</Text>
-            </TouchableHighlight>
-
-            <TouchableHighlight
-              style={styles.buttons}
-              onPress={this._getExperienceButtonOnPress(IMAGE_UPLOAD)}
-              underlayColor={"#68a0dd"}
-            >
-              <Text style={styles.buttonText}>UPLOAD IMAGE</Text>
-            </TouchableHighlight>
-
           </View>
         </Content>
       </Container>
@@ -213,6 +219,10 @@ class Login extends Component {
 
   _getImageUpload() {
     return <ImageUpload />;
+  }
+
+  _getCameraPage() {
+    return <UseCamera />;
   }
 
   // This function returns an anonymous/lambda function to be used
@@ -307,14 +317,13 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
   return {
-    renderLogOut: () => dispatch(renderLogOut()),
-    renderLogIn: () => dispatch(renderLogIn())
+    navigate: render => dispatch(navigate(render))
   };
 };
 
 const mapStateToProps = state => {
   return {
-    selectLogOutRender: selectLogOutRender(state)
+    selectNavigator: selectNavigator(state)
   };
 };
 
