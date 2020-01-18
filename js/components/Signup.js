@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   Container,
   Header,
@@ -14,12 +15,19 @@ import {
   Body,
   Right
 } from "native-base";
-const Signup = () => {
+import { navigate } from "../redux/render/render.action";
+const Signup = props => {
   return (
     <Container style={{ width: 400, height: 700 }}>
       <Header>
         <Left>
-          <Button hasText transparent>
+          <Button
+            hasText
+            transparent
+            onPress={() => {
+              props.navigate("LOGIN_PAGE");
+            }}
+          >
             <Text>Back</Text>
           </Button>
         </Left>
@@ -56,4 +64,10 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+const mapDispatchToProps = dispatch => {
+  return {
+    navigate: render => dispatch(navigate(render))
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Signup);

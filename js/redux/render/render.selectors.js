@@ -2,7 +2,7 @@ import { createSelector } from "reselect";
 
 const selectRender = state => state.render;
 
-export const selectLogOutRender = createSelector(
+export const selectNavigator = createSelector(
   [selectRender],
-  render => render.logout
+  render => render.navigation
 );
