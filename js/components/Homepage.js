@@ -86,8 +86,13 @@ const HomePage = props => {
           >
             <Text>My AR</Text>
           </Button>
-          <Button vertical>
-            <Text>Create</Text>
+          <Button
+            vertical
+            onPress={() => {
+              props.navigate("CAMERA_PAGE");
+            }}
+          >
+            <Text>Take a Photo</Text>
           </Button>
           <Button
             vertical

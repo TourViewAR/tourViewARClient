@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import {
   Container,
   Header,
@@ -15,6 +14,7 @@ import {
   Body,
   Right
 } from "native-base";
+import { connect } from "react-redux";
 import { navigate } from "../redux/render/render.action";
 const Signup = props => {
   return (

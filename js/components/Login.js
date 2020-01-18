@@ -41,6 +41,7 @@ import Signup from "./Signup";
 import Profile from "./Profile";
 
 import ImageUpload from "./ImagePicker";
+import UseCamera from "./Camera";
 
 var sharedProps = {
   apiKey: "API_KEY_HERE"
@@ -58,6 +59,7 @@ var REACT_NATIVE_HOME = "REACT_NATIVE_HOME";
 var PROFILE = "PROFILE";
 var IMAGE_UPLOAD = "IMAGE_UPLOAD";
 var LOGIN_PAGE = "LOGIN_PAGE";
+var CAMERA_PAGE = "CAMERA_PAGE";
 
 // This determines which type of experience to launch in, or UNSET, if the user should
 // be presented with a choice of AR or VR. By default, we offer the user a choice.
@@ -97,6 +99,8 @@ class Login extends Component {
       return this._getProfilePage();
     } else if (this.props.selectNavigator === IMAGE_UPLOAD) {
       return this._getImageUpload();
+    } else if (this.props.selectNavigator === CAMERA_PAGE) {
+      return this._getCameraPage();
     }
   }
 
@@ -215,6 +219,10 @@ class Login extends Component {
 
   _getImageUpload() {
     return <ImageUpload />;
+  }
+
+  _getCameraPage() {
+    return <UseCamera />;
   }
 
   // This function returns an anonymous/lambda function to be used
