@@ -2,9 +2,7 @@
 
 import React, { Component } from "react";
 
-import { StyleSheet, Button, Text, View } from "react-native";
-import { connect } from "react-redux";
-import { navigate } from "./redux/render/render.action";
+import { StyleSheet } from "react-native";
 
 import {
   ViroSceneNavigator,
@@ -32,13 +30,13 @@ var InfoElement = require("./custom_controls/InfoElement");
 let polarToCartesian = ViroUtils.polarToCartesian;
 var slutWindowCard = require("./res/infocard_slut.png");
 
-class HelloWorldSceneAR extends Component {
+export default class HelloWorldSceneAR extends Component {
   constructor() {
     super();
 
     // Set initial state here
     this.state = {
-      text: "Back button..."
+      text: "Initializing AR..."
     };
 
     // bind 'this' to functions
@@ -52,18 +50,10 @@ class HelloWorldSceneAR extends Component {
         <Viro360Image
           source={{
             uri:
-              "https://panoimages.s3-us-west-1.amazonaws.com/images/myimage.jpg"
+              "https://i.pinimg.com/originals/11/99/42/119942206240512b97077429723f1885.jpg"
           }}
         />
-        <ViroText
-          text={this.state.text}
-          scale={[0.5, 0.5, 0.5]}
-          position={[0, 0, -1]}
-          style={styles.helloWorldTextStyle}
-          onClick={() => {
-            this.props.navigate("REACT_NATIVE_HOME");
-          }}
-        />
+        {/* <ViroText text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style={styles.helloWorldTextStyle} /> */}
         {/* <ViroBox position={[0, -.5, -1]} scale={[.3, .3, .1]} materials={["grid"]} animation={{name: "rotate", run: true, loop: true}} /> */}
         <ViroAmbientLight color={"#aaaaaa"} />
         <ViroSpotLight
@@ -129,11 +119,3 @@ ViroAnimations.registerAnimations({
 });
 
 module.exports = HelloWorldSceneAR;
-
-const mapDispatchToProps = dispatch => {
-  return {
-    navigate: render => dispatch(navigate(render))
-  };
-};
-
-export default connect(null, mapDispatchToProps)(HelloWorldSceneAR);

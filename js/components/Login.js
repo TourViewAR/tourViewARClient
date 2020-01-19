@@ -44,6 +44,8 @@ import Signup from "./Signup";
 
 import Profile from "./Profile";
 
+import Search from "./Search";
+
 import ImageUpload from "./ImagePicker";
 import UseCamera from "./Camera";
 
@@ -64,6 +66,7 @@ var PROFILE = "PROFILE";
 var IMAGE_UPLOAD = "IMAGE_UPLOAD";
 var LOGIN_PAGE = "LOGIN_PAGE";
 var CAMERA_PAGE = "CAMERA_PAGE";
+var SEARCH_PAGE = "SEARCH_PAGE";
 
 // This determines which type of experience to launch in, or UNSET, if the user should
 // be presented with a choice of AR or VR. By default, we offer the user a choice.
@@ -81,11 +84,10 @@ class Login extends Component {
     this._getARNavigator = this._getARNavigator.bind(this);
     // this._getVRNavigator = this._getVRNavigator.bind(this);
     this._getReactNativeHome = this._getReactNativeHome.bind(this);
-    this._getExperienceButtonOnPress = this._getExperienceButtonOnPress.bind(
-      this
-    );
+    this._getExperienceButtonOnPress = this._getExperienceButtonOnPress.bind(this);
     this._getProfilePage = this._getProfilePage.bind(this);
     this._getImageUpload = this._getImageUpload.bind(this);
+    this._getSearchPage = this._getSearchPage.bind(this);
     this._exitViro = this._exitViro.bind(this);
     this._loginHandler = this._loginHandler.bind(this);
   }
@@ -106,6 +108,8 @@ class Login extends Component {
       return this._getImageUpload();
     } else if (this.props.selectNavigator === CAMERA_PAGE) {
       return this._getCameraPage();
+    } else if (this.props.selectNavigator === SEARCH_PAGE) {
+      return this._getSearchPage();
     }
   }
 
@@ -234,6 +238,10 @@ class Login extends Component {
 
   _getCameraPage() {
     return <UseCamera />;
+  }
+
+  _getSearchPage() {
+    return <Search />;
   }
 
   // This function returns an anonymous/lambda function to be used
