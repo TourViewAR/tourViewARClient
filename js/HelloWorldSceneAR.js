@@ -1,8 +1,10 @@
-'use strict';
+"use strict";
 
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import {StyleSheet} from 'react-native';
+import { StyleSheet, Button, Text, View } from "react-native";
+import { connect } from "react-redux";
+import { navigate } from "./redux/render/render.action";
 
 import {
   ViroSceneNavigator,
@@ -23,21 +25,20 @@ import {
   ViroARPlaneSelector,
   ViroNode,
   ViroAnimations,
-  ViroImage,
-} from 'react-viro';
+  ViroImage
+} from "react-viro";
 
-var InfoElement = require('./custom_controls/InfoElement');
+var InfoElement = require("./custom_controls/InfoElement");
 let polarToCartesian = ViroUtils.polarToCartesian;
-var slutWindowCard = require('./res/infocard_slut.png');
+var slutWindowCard = require("./res/infocard_slut.png");
 
-export default class HelloWorldSceneAR extends Component {
-
+class HelloWorldSceneAR extends Component {
   constructor() {
     super();
 
     // Set initial state here
     this.state = {
-      text : "Initializing AR..."
+      text: "Back button..."
     };
 
     // bind 'this' to functions
@@ -46,15 +47,43 @@ export default class HelloWorldSceneAR extends Component {
 
   render() {
     return (
-      <ViroARScene onTrackingUpdated={this._onInitialized} >
+      <ViroARScene onTrackingUpdated={this._onInitialized}>
         {/* <Viro360Image source={require('./res/amsterdam.jpg')} /> */}
-        <Viro360Image source={{uri: "https://panoimages.s3-us-west-1.amazonaws.com/images/myimage.jpg"}} />
-        {/* <ViroText text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style={styles.helloWorldTextStyle} /> */}
+        <Viro360Image
+          source={{
+            uri:
+              "https://panoimages.s3-us-west-1.amazonaws.com/images/myimage.jpg"
+          }}
+        />
+        <ViroText
+          text={this.state.text}
+          scale={[0.5, 0.5, 0.5]}
+          position={[0, 0, -1]}
+          style={styles.helloWorldTextStyle}
+          onClick={() => {
+            this.props.navigate("REACT_NATIVE_HOME");
+          }}
+        />
         {/* <ViroBox position={[0, -.5, -1]} scale={[.3, .3, .1]} materials={["grid"]} animation={{name: "rotate", run: true, loop: true}} /> */}
         <ViroAmbientLight color={"#aaaaaa"} />
-        <ViroSpotLight innerAngle={5} outerAngle={90} direction={[0, -1, -.2]} poition={[0, 3, 1]} color="#ffffff" castsShadow={true} />
-        <ViroNode position={[0, -1, 0]} dragType="FixedToWorld" onDrag={() => {}} >
-          <InfoElement content={slutWindowCard} contentCardScale={[3.67,4,1]} position={polarToCartesian([-5, 0, 0])}/>
+        <ViroSpotLight
+          innerAngle={5}
+          outerAngle={90}
+          direction={[0, -1, -0.2]}
+          poition={[0, 3, 1]}
+          color="#ffffff"
+          castsShadow={true}
+        />
+        <ViroNode
+          position={[0, -1, 0]}
+          dragType="FixedToWorld"
+          onDrag={() => {}}
+        >
+          <InfoElement
+            content={slutWindowCard}
+            contentCardScale={[3.67, 4, 1]}
+            position={polarToCartesian([-5, 0, 0])}
+          />
           {/* <Viro3DObject source={require('./res/emoji_smile/emoji_smile.vrx')} position={[0, -.5, 0]} scale={[.2, .2, .2]} type="VRX" /> */}
         </ViroNode>
       </ViroARScene>
@@ -64,7 +93,7 @@ export default class HelloWorldSceneAR extends Component {
   _onInitialized(state, reason) {
     if (state == ViroConstants.TRACKING_NORMAL) {
       this.setState({
-        text : "ADHd!!!!!"
+        text: "ADHd!!!!!"
       });
     } else if (state == ViroConstants.TRACKING_NONE) {
       // Handle loss of tracking
@@ -76,18 +105,18 @@ export default class HelloWorldSceneAR extends Component {
 
 var styles = StyleSheet.create({
   helloWorldTextStyle: {
-    fontFamily: 'Arial',
+    fontFamily: "Arial",
     fontSize: 30,
-    color: '#ffffff',
-    textAlignVertical: 'center',
-    textAlign: 'center',
-  },
+    color: "#ffffff",
+    textAlignVertical: "center",
+    textAlign: "center"
+  }
 });
 
 ViroMaterials.createMaterials({
   grid: {
-    diffuseTexture: require('./res/grid_bg.jpg'),
-  },
+    diffuseTexture: require("./res/grid_bg.jpg")
+  }
 });
 
 ViroAnimations.registerAnimations({
@@ -95,9 +124,16 @@ ViroAnimations.registerAnimations({
     properties: {
       rotateY: "+=90"
     },
-    duration: 250,
-  },
-})
-
+    duration: 250
+  }
+});
 
 module.exports = HelloWorldSceneAR;
+
+const mapDispatchToProps = dispatch => {
+  return {
+    navigate: render => dispatch(navigate(render))
+  };
+};
+
+export default connect(null, mapDispatchToProps)(HelloWorldSceneAR);
