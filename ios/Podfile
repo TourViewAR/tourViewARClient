@@ -3,6 +3,4 @@ target 'tourViewARClient' do
   use_frameworks!
   pod 'ViroReact', :path => '../node_modules/react-viro/ios/'
   pod 'ViroKit', :path => '../node_modules/react-viro/ios/dist/ViroRenderer/'
-  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
-
 end
