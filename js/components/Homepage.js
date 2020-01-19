@@ -37,6 +37,7 @@ const HomePage = props => {
   return (
     <Container style={{ width: 400, height: 700 }}>
       <Header>
+        <Left />
         <Body>
           <Title>Tour AR</Title>
         </Body>

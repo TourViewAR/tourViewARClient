@@ -15,7 +15,18 @@ import {
   Right
 } from "native-base";
 import { connect } from "react-redux";
+import {
+  selectUserId,
+  selectUserPassword,
+  selectUserEmail
+} from "../redux/user/user.selectors";
 import { navigate } from "../redux/render/render.action";
+import {
+  setUserId,
+  setUserPassword,
+  setUserEmail
+} from "../redux/user/user.action";
+
 const Signup = props => {
   return (
     <Container style={{ width: 400, height: 700 }}>
@@ -40,19 +51,32 @@ const Signup = props => {
         <Form>
           <Item floatingLabel>
             <Label>Username</Label>
-            <Input />
+            <Input
+              onChangeText={text => {
+                props.setUserId(text);
+              }}
+            />
           </Item>
-          <Item floatingLabel last>
+          <Item floatingLabel>
             <Label>Password</Label>
-            <Input />
+            <Input
+              secureTextEntry={true}
+              onChangeText={text => {
+                props.setUserPassword(text);
+              }}
+            />
           </Item>
-          <Item floatingLabel last>
+          <Item floatingLabel>
             <Label>Confirm Password</Label>
-            <Input />
+            <Input secureTextEntry={true} />
           </Item>
-          <Item floatingLabel last>
+          <Item floatingLabel>
             <Label>E-mail</Label>
-            <Input />
+            <Input
+              onChangeText={text => {
+                props.setUserEmail(text);
+              }}
+            />
           </Item>
         </Form>
 
@@ -66,8 +90,19 @@ const Signup = props => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    navigate: render => dispatch(navigate(render))
+    navigate: render => dispatch(navigate(render)),
+    setUserId: id => dispatch(setUserId(id)),
+    setUserPassword: password => dispatch(setUserPassword(password)),
+    setUserEmail: email => dispatch(setUserEmail(email))
   };
 };
 
-export default connect(null, mapDispatchToProps)(Signup);
+const mapStateToProps = state => {
+  return {
+    selectUserId: selectUserId(state),
+    selectUserPassword: selectUserPassword(state),
+    selectUserEmail: selectUserEmail(state)
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);
