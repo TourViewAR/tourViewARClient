@@ -2,9 +2,9 @@ import { createSelector } from 'reselect';
 
 const selectUser = state => state.user;
 
-export const selectUserDisplayName = createSelector(
+export const selectUserId = createSelector(
   [selectUser],
-  user => user.displayName
+  user => user.id
 );
 
 export const selectUserEmail = createSelector(
@@ -12,22 +12,22 @@ export const selectUserEmail = createSelector(
   user => user.email
 );
 
+export const selectUserName = createSelector(
+  [selectUser],
+  user => user.username
+);
+
 export const selectUserPassword = createSelector(
   [selectUser],
-  user => user.password
+  user => user.pw
 );
 
 export const selectUserProfilePic = createSelector(
   [selectUser],
-  user => user.profilePic
+  user => user.profile_pic_url
 );
 
-export const selectUserTour = createSelector(
+export const selectUserCreatedTours = createSelector(
   [selectUser],
-  user => user.tours
-);
-
-export const selectUserId = createSelector(
-  [selectUser],
-  user => user.userId
+  user => user.created_tours
 );

@@ -1,34 +1,27 @@
-export const setSceneImgs = (img) => {
+export const setTourId = (id) => {
   return ({
-    type: 'SET_SCENE_IMGS',
-    payload: img
-  });
-};
-
-export const setSceneObjs = (obj) => {
-  return ({
-    type: 'SET_SCENE_OBJS',
-    payload: obj
-  });
-};
-
-export const setLatLongAlt = (coordinate) => {
-  return ({
-    type: 'SET_LAT_LONG_ALT',
-    payload: coordinate
-  });
-};
-
-export const setOwnerId = (id) => {
-  return ({
-    type: 'SET_OWNER_ID',
+    type: 'SET_TOUR_ID',
     payload: id
   });
 };
 
-export const setTourId = (id) => {
+export const setTourName = (name) => {
   return ({
-    type: 'SET_TOUR_ID',
+    type: 'SET_TOUR_NAME',
+    payload: name
+  });
+};
+
+export const setTourPanoPhoto = (photo) => {
+  return ({
+    type: 'SET_TOUR_PANO_PHOTO',
+    payload: photo
+  });
+};
+
+export const setTourIdUser = (id) => {
+  return ({
+    type: 'SET_TOUR_ID_USER',
     payload: id
   });
 };
