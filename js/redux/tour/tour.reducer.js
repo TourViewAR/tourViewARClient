@@ -1,37 +1,31 @@
 const INITIAL_STATE = {
-  sceneImgs: [],
-  sceneObjs: [],
-  latLongAlt: [],
-  ownerId: '',
-  tourId: ''
+  id: '',
+  tour_name: ''
+  pano_photos: [],
+  id_user: '',
 }
 
 const TourReducer = (state=INITIAL_STATE, action) => {
   switch (action.type) {
-    case 'SET_SCENE_IMGS':
-      return ({
-        ...state,
-        sceneImgs: action.payload
-      });
-    case 'SET_SCENE_OBJS':
-      return ({
-        ...state,
-        sceneObjs: action.payload
-      });
-    case 'SET_LAT_LONG_ALT':
-      return ({
-        ...state,
-        latLongAlt: action.payload
-      });
-    case 'SET_OWNER_ID':
-      return ({
-        ...state,
-        ownerId: action.payload
-      });
     case 'SET_TOUR_ID':
       return ({
         ...state,
-        tourId: action.payload
+        id: action.payload
+      });
+    case 'SET_TOUR_NAME':
+      return ({
+        ...state,
+        tour_name: action.payload
+      });
+    case 'SET_TOUR_PANO_PHOTO':
+      return ({
+        ...state,
+        pano_photos: action.payload
+      });
+    case 'SET_TOUR_ID_USER':
+      return ({
+        ...state,
+        id_user: action.payload
       });
     default:
       return state;
