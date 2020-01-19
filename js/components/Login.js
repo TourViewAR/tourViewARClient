@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import axios from 'axios';
+
 import {
   StyleSheet,
   View,
@@ -341,7 +343,7 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = dispatch => {
   return {
     navigate: render => dispatch(navigate(render)),
-    setUserId: id => dispatch(setUserId(id)),
+    setUserName: name => dispatch(setUserName(name)),
     setUserPassword: password => dispatch(setUserPassword(password))
   };
 };
@@ -349,7 +351,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     selectNavigator: selectNavigator(state),
-    selectUserId: selectUserId(state),
+    selectUserName: selectUserName(state),
     selectUserPassword: selectUserPassword(state)
   };
 };
