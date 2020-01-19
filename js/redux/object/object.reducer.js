@@ -1,37 +1,43 @@
 const INITIAL_STATE = {
-  xyzCoordinate: [],
-  objectId: '',
-  tourId: '', // id from the tours schema should we rename this sceneId??
-  type: '',
-  scale: []
+  id: '',
+  x: 0,
+  y: 0,
+  object_value: '',
+  scale: [],
+  id_pano: '',
 }
 
 const ObjectReducer = (state=INITIAL_STATE, action) => {
   switch (action.type) {
-    case 'SET_XYZ_COORDINATE':
+    case 'SET_ID':
       return ({
         ...state,
-        xyzCoordinate: action.payload
+        id: action.payload
       });
-    case 'SET_OBJECT_ID':
+    case 'SET_X_COORDINATE':
       return ({
         ...state,
-        objectId: action.payload
+        x: action.payload
       });
-    case 'SET_TOUR_ID':
+    case 'SET_Y_COORDINATE':
       return ({
         ...state,
-        tourId: action.payload
+        y: action.payload
       });
-    case 'SET_OBJ_TYPE': // should rename this to just SET_TYPE?
+    case 'SET_OBJECT_VALUE':
       return ({
         ...state,
-        type: action.payload
+        object_value: action.payload
       });
     case 'SET_OBJ_SCALE':
       return ({
         ...state,
         scale: action.payload
+      })
+    case 'SET_ID_PANO':
+      return ({
+        ...state,
+        id_pano: action.payload
       })
     default:
       return state;
