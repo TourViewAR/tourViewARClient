@@ -1,10 +1,10 @@
 const INITIAL_STATE = {
-  id: ''
+  id: '',
   email: '',
   username: '',
   pw: '',
   profile_pic_url: '',
-  created_tours: [],
+  created_tours: []
 }
 
 const UserReducer = (state=INITIAL_STATE, action) => {

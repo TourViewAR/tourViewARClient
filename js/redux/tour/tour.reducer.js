@@ -1,8 +1,8 @@
 const INITIAL_STATE = {
   id: '',
-  tour_name: ''
+  tour_name: '',
   pano_photos: [],
-  id_user: '',
+  id_user: ''
 }
 
 const TourReducer = (state=INITIAL_STATE, action) => {

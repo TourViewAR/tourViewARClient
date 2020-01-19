@@ -4,7 +4,7 @@ const INITIAL_STATE = {
   y: 0,
   object_value: '',
   scale: [],
-  id_pano: '',
+  id_pano: ''
 }
 
 const ObjectReducer = (state=INITIAL_STATE, action) => {

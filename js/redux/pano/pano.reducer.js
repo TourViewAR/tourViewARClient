@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
   id: '',
-  img_url: '',
+  img_url: ''
 }
 
 const PanoReducer = (state=INITIAL_STATE, action) => {

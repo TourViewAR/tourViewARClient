@@ -6,7 +6,7 @@ import TourReducer from "./tour/tour.reducer";
 import UserReducer from "./user/user.reducer";
 import ObjectReducer from "./object/object.reducer";
 import RenderReducer from "./render/render.reducer";
-import PanoReducer from "./render/pano.reducer";
+import PanoReducer from "./pano/pano.reducer";
 
 const persistConfig = {
   key: "root",
