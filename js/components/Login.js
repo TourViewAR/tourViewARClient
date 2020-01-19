@@ -143,7 +143,7 @@ class Login extends Component {
             >
               <Item floatingLabel>
                 <Label>Username</Label>
-                <Input
+                <TextInput
                   onChangeText={text => {
                     this.props.setUserName(text);
                   }}
@@ -151,7 +151,7 @@ class Login extends Component {
               </Item>
               <Item floatingLabel>
                 <Label>Password</Label>
-                <Input
+                <TextInput
                   secureTextEntry={true}
                   onChangeText={text => {
                     this.props.setUserPassword(text);
@@ -241,12 +241,11 @@ class Login extends Component {
 
   _getUserLogin() {
     axios.get(`http://tourviewarserver.herokuapp.com/api/login`, {
-      body: {
-        username: selectUserName,
-        pw: selectUserPassword
-      }
+        username: this.props.selectUserName,
+        pw: this.props.selectUserPassword
     })
-      .then((results) => alert(results))
+      // .then(() => alert(this.props.selectUserName))
+      .then((results) => alert(JSON.stringify(results)))
       .catch((err) => alert('invalid username or password', err))
   }
 
