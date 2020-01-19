@@ -25,7 +25,7 @@ class TourContainer extends Component {
     if (this.state.navigator === "PROFILE") {
       return (
         <View style={localStyles.tourContainer} >
-          <Image style={localStyles.icon} source={{uri: "https://cdn.villaway.com/202303/images/55397fcfe4b08b8483a50794/tn_90lpzueywp_202303.jpg"}} />
+          <Image style={localStyles.icon} source={{uri: "https://i.pinimg.com/originals/11/99/42/119942206240512b97077429723f1885.jpg"}} />
           <Text>{`experience name placeholder`}</Text>
           <Text>{`experience details placeholder`}</Text>
           <Button style={localStyles.button} onPress={() => this.setState({navigator: "AR"})} title="VIEW EXPERIENCE" />

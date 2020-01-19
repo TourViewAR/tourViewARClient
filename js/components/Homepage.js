@@ -53,7 +53,13 @@ const HomePage = props => {
           </Body>
         </CardItem>
         <View style={{ marginTop: 50 }}>
-          <Button block light style={styles.button}>
+          <Button
+            block light style={styles.button}
+            onPress={() => {
+              props.navigate("SEARCH_PAGE")
+            }}
+            full
+          >
             <Text>Search</Text>
           </Button>
           <Button
