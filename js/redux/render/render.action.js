@@ -1,13 +1,6 @@
-export const renderLogOut = render => {
+export const navigate = render => {
   return {
-    type: "RENDER_HOME_PAGE",
-    payload: render
-  };
-};
-
-export const renderLogIn = render => {
-  return {
-    type: "RENDER_LOGIN_PAGE",
+    type: "RENDER_PAGE",
     payload: render
   };
 };

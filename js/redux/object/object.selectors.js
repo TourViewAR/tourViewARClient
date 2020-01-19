@@ -2,27 +2,32 @@ import { createSelector } from 'reselect';
 
 const selectObject = state => state.object;
 
-export const selectObjectXyzCoordinate = createSelector(
-  [selectObject],
-  object => object.xyzCoordinate
-);
-
 export const selectObjectId = createSelector(
   [selectObject],
-  object => object.objectId
+  object => object.id
 );
 
-export const selectTourId = createSelector(
+export const selectObjectXCoordinate = createSelector(
   [selectObject],
-  object => object.tourId
+  object => object.x
 );
 
-export const selectObjectType = createSelector(
+export const selectObjectYCoordinate = createSelector(
   [selectObject],
-  object => object.type
+  object => object.y
+);
+
+export const selectObjectValue = createSelector(
+  [selectObject],
+  object => object.object_value
 );
 
 export const selectObjectScale = createSelector(
   [selectObject],
   object => object.scale
+);
+
+export const selectObjectIdPano = createSelector(
+  [selectObject],
+  object => object.id_pano
 );

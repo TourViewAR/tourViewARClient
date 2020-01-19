@@ -1,28 +1,28 @@
-export const setObjectXyzCoordinate = (coordinate) => {
+export const setObjectId = (id) => {
   return ({
-    type: 'SET_XYZ_COORDINATE',
+    type: 'SET_ID',
+    payload: id
+  });
+};
+
+export const setObjectXCoordinate = (coordinate) => {
+  return ({
+    type: 'SET_X_COORDINATE',
     payload: coordinate
   });
 };
 
-export const setObjectId = (id) => {
+export const setObjectYCoordinate = (coordinate) => {
   return ({
-    type: 'SET_OBJECT_ID',
-    payload: id
+    type: 'SET_Y_COORDINATE',
+    payload: coordinate
   });
 };
 
-export const setTourId = (id) => {
+export const setObjectValue = (value) => {
   return ({
-    type: 'SET_TOUR_ID',
-    payload: id
-  });
-};
-
-export const setObjectType = (type) => {
-  return ({
-    type: 'SET_OBJ_TYPE',
-    payload: type
+    type: 'SET_OBJECT_VALUE',
+    payload: value
   });
 };
 
@@ -30,5 +30,12 @@ export const setObjectScale = (scale) => {
   return ({
     type: 'SET_OBJ_SCALE',
     payload: scale
+  });
+};
+
+export const setObjectIdPano = (id) => {
+  return ({
+    type: 'SET_ID_PANO',
+    payload: id
   });
 };

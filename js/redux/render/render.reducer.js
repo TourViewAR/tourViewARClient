@@ -1,18 +1,13 @@
 const INITIAL_STATE = {
-  logout: true
+  navigation: "LOGIN_PAGE"
 };
 
 const RenderReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case "RENDER_HOME_PAGE":
+    case "RENDER_PAGE":
       return {
         ...state,
-        logout: true
-      };
-    case "RENDER_LOGIN_PAGE":
-      return {
-        ...state,
-        logout: false
+        navigation: action.payload
       };
     default:
       return state;
