@@ -32,11 +32,11 @@ import { connect } from "react-redux";
 
 import { selectNavigator } from "../redux/render/render.selectors";
 
-import { selectUserId, selectUserPassword } from "../redux/user/user.selectors";
+import { selectUserName, selectUserPassword } from "../redux/user/user.selectors";
 
 import { navigate } from "../redux/render/render.action";
 
-import { setUserId, setUserPassword } from "../redux/user/user.action";
+import { setUserName, setUserPassword } from "../redux/user/user.action";
 
 import HomePage from "./Homepage";
 
@@ -47,6 +47,7 @@ import Profile from "./Profile";
 import Search from "./Search";
 
 import ImageUpload from "./ImagePicker";
+
 import UseCamera from "./Camera";
 
 var sharedProps = {
@@ -75,27 +76,24 @@ var defaultNavigatorType = UNSET;
 class Login extends Component {
   constructor() {
     super();
-
     this.state = {
       navigatorType: defaultNavigatorType,
       sharedProps: sharedProps
     };
     this._getExperienceSelector = this._getExperienceSelector.bind(this);
     this._getARNavigator = this._getARNavigator.bind(this);
-    // this._getVRNavigator = this._getVRNavigator.bind(this);
     this._getReactNativeHome = this._getReactNativeHome.bind(this);
     this._getExperienceButtonOnPress = this._getExperienceButtonOnPress.bind(this);
     this._getProfilePage = this._getProfilePage.bind(this);
     this._getImageUpload = this._getImageUpload.bind(this);
     this._getSearchPage = this._getSearchPage.bind(this);
     this._exitViro = this._exitViro.bind(this);
+    this._getUserLogin = this._getUserLogin.bind(this);
     this._loginHandler = this._loginHandler.bind(this);
   }
   render() {
     if (this.props.selectNavigator === LOGIN_PAGE) {
       return this._getExperienceSelector();
-      // } else if (this.state.navigatorType == VR_NAVIGATOR_TYPE) {
-      //   return this._getVRNavigator();
     } else if (this.props.selectNavigator === AR_NAVIGATOR_TYPE) {
       return this._getARNavigator();
     } else if (this.props.selectNavigator === REACT_NATIVE_HOME) {
@@ -145,13 +143,18 @@ class Login extends Component {
                 <Label>Username</Label>
                 <Input
                   onChangeText={text => {
-                    this.props.setUserId(text);
+                    this.props.setUserName(text);
                   }}
                 />
               </Item>
               <Item floatingLabel>
                 <Label>Password</Label>
-                <Input secureTextEntry={true} />
+                <Input
+                  secureTextEntry={true}
+                  onChangeText={text => {
+                    this.props.setUserPassword(text);
+                  }}
+                />
               </Item>
             </Form>
             <View
@@ -169,6 +172,7 @@ class Login extends Component {
                   width: 250
                 }}
                 // onPress={this._loginHandler}
+                onPress={this._getUserLogin}
               >
                 <Text>Login</Text>
               </Button>
@@ -209,17 +213,6 @@ class Login extends Component {
     );
   }
 
-  // Returns the ViroSceneNavigator which will start the VR experience
-  // _getVRNavigator() {
-  //   return (
-  //     <ViroVRSceneNavigator
-  //       {...this.state.sharedProps}
-  //       initialScene={{ scene: InitialVRScene }}
-  //       onExitViro={this._exitViro}
-  //     />
-  //   );
-  // }
-
   _getReactNativeHome() {
     return <HomePage />;
   }
@@ -242,6 +235,17 @@ class Login extends Component {
 
   _getSearchPage() {
     return <Search />;
+  }
+
+  _getUserLogin() {
+    axios.get(`http://tourviewarserver.herokuapp.com/api/login`, {
+      body: {
+        username: selectUserName,
+        pw: selectUserPassword
+      }
+    })
+      .then((results) => alert(results))
+      .catch((err) => alert('invalid username or password', err))
   }
 
   // This function returns an anonymous/lambda function to be used
