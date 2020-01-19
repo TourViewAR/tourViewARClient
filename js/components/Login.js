@@ -32,7 +32,11 @@ import { connect } from "react-redux";
 
 import { selectNavigator } from "../redux/render/render.selectors";
 
+import { selectUserId, selectUserPassword } from "../redux/user/user.selectors";
+
 import { navigate } from "../redux/render/render.action";
+
+import { setUserId, setUserPassword } from "../redux/user/user.action";
 
 import HomePage from "./Homepage";
 
@@ -85,6 +89,7 @@ class Login extends Component {
     this._getImageUpload = this._getImageUpload.bind(this);
     this._getSearchPage = this._getSearchPage.bind(this);
     this._exitViro = this._exitViro.bind(this);
+    this._loginHandler = this._loginHandler.bind(this);
   }
   render() {
     if (this.props.selectNavigator === LOGIN_PAGE) {
@@ -107,6 +112,8 @@ class Login extends Component {
       return this._getSearchPage();
     }
   }
+
+  _loginHandler() {}
 
   // Presents the user with a choice of an AR or VR experience
   _getExperienceSelector() {
@@ -136,11 +143,15 @@ class Login extends Component {
             >
               <Item floatingLabel>
                 <Label>Username</Label>
-                <Input />
+                <Input
+                  onChangeText={text => {
+                    this.props.setUserId(text);
+                  }}
+                />
               </Item>
-              <Item floatingLabel last>
+              <Item floatingLabel>
                 <Label>Password</Label>
-                <Input />
+                <Input secureTextEntry={true} />
               </Item>
             </Form>
             <View
@@ -157,31 +168,31 @@ class Login extends Component {
                   margin: 20,
                   width: 250
                 }}
+                // onPress={this._loginHandler}
               >
                 <Text>Login</Text>
               </Button>
             </View>
           </View>
           <View style={styles.outer}>
-            <TouchableHighlight
-              style={styles.buttons}
+            <Button
+              block
               onPress={() => {
                 this.props.navigate(REACT_NATIVE_HOME);
               }}
-              underlayColor={"#68a0dd"}
+              style={{ marginBottom: 20 }}
             >
               <Text style={styles.buttonText}>HOMEPAGE</Text>
-            </TouchableHighlight>
+            </Button>
 
-            <TouchableHighlight
-              style={styles.buttons}
+            <Button
+              block
               onPress={() => {
                 this.props.navigate(REACT_NATIVE_SIGNUP);
               }}
-              underlayColor={"#68a0dd"}
             >
               <Text style={styles.buttonText}>SIGN UP</Text>
-            </TouchableHighlight>
+            </Button>
           </View>
         </Content>
       </Container>
@@ -325,13 +336,17 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
   return {
-    navigate: render => dispatch(navigate(render))
+    navigate: render => dispatch(navigate(render)),
+    setUserId: id => dispatch(setUserId(id)),
+    setUserPassword: password => dispatch(setUserPassword(password))
   };
 };
 
 const mapStateToProps = state => {
   return {
-    selectNavigator: selectNavigator(state)
+    selectNavigator: selectNavigator(state),
+    selectUserId: selectUserId(state),
+    selectUserPassword: selectUserPassword(state)
   };
 };
 
