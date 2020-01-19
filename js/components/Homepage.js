@@ -1,10 +1,15 @@
 import React, { Component } from "react";
+
 import { Image, StyleSheet } from "react-native";
+
 import { connect } from "react-redux";
 
 import { selectNavigator } from "../redux/render/render.selectors";
 
+import { selectUserName, selectUserProfilePic } from "../redux/user/user.selectors";
+
 import { navigate } from "../redux/render/render.action";
+
 import {
   Container,
   Header,
