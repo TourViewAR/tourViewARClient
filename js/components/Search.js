@@ -2,16 +2,13 @@ import React, { Component, useState, useCallback } from "react";
 import { ScrollView, View, StyleSheet, Image, TextInput } from "react-native";
 import axios from "axios";
 
-import TourContainer from "./TourContainer";
+// import TourContainer from "./TourContainer";
 import { connect } from "react-redux";
 import { navigate } from "../redux/render/render.action";
 import {
   Container,
   Header,
   Content,
-  InputGroup,
-  Input,
-  Icon,
   Text,
   Left,
   Body,
