@@ -6,9 +6,11 @@ import { navigate } from "../redux/render/render.action";
 import {
   selectUserName,
   selectUserProfilePic,
-  selectUserCreatedTours
+  selectUserCreatedTours,
+  selectUserId
 } from "../redux/user/user.selectors";
 import {} from "../redux/tour/tour.selectors";
+import axios from 'axios';
 import {
   Container,
   Header,
@@ -25,8 +27,19 @@ class Profile extends Component {
   constructor() {
     super();
     this.state = {
-      view: "MAIN"
+      view: "MAIN",
+      userTours: [
+        {
+          pic_url: 'https://i.pinimg.com/originals/15/19/65/1519654484f5159bd5d0cd87f0a2c42f.jpg',
+          tour_name: 'hunters spicy tour'
+        },
+        {
+          pic_url: 'https://i.ytimg.com/vi/OjaAxb7mqDE/maxresdefault.jpg',
+          tour_name: 'the other spicy tour'
+        }
+      ]
     };
+    this.getUserTours = this.getUserTours.bind(this);
   }
   render() {
     if (this.state.view === "MAIN") {
@@ -34,12 +47,12 @@ class Profile extends Component {
         <Container style={localStyles.mainProfileContainer}>
           <Header>
             <Left>
-              <Button
-                hasText
-                transparent
-                onPress={() => {
-                  this.props.navigate("REACT_NATIVE_HOME");
-                }}
+            <Button
+              hasText
+              transparent
+              onPress={() => {
+                this.props.navigate("REACT_NATIVE_HOME");
+              }}
               >
                 <Text>Back</Text>
               </Button>
@@ -61,9 +74,9 @@ class Profile extends Component {
               <Button
                 hasText
                 transparent
-                onPress={() => {
-                  this.setState({ view: "USER_TOURS" });
-                }}
+                onPress={
+                  this.getUserTours
+                }
               >
                 <Text>My Tours</Text>
               </Button>
@@ -110,8 +123,8 @@ class Profile extends Component {
               />
               <Text>{`${this.props.selectUserName}'s Tours`}</Text>
               <ScrollView style={localStyles.scrollViewContainer}>
-                {this.props.selectUserCreatedTours.map((prop, i) => (
-                  <TourContainer key={i} tour={prop} />
+                {this.state.userTours.map((tour, i) => (
+                  <TourContainer key={i} tour={tour} />
                 ))}
               </ScrollView>
             </View>
@@ -120,7 +133,23 @@ class Profile extends Component {
       );
     }
   }
-}
+
+  getUserTours() {
+    axios.get(
+      `http://tourviewarserver.herokuapp.com/api/tours/${this.props.selectUserId}`,
+      { headers: { "Content-Type": "application/json" } }
+    )
+    .then((results) => {
+      this.setState({
+        userTours: results.data.rows,
+        view: "USER_TOURS"
+      })
+    })
+    .catch((err) => {
+      alert(err)
+    })
+  }
+};
 
 const localStyles = StyleSheet.create({
   mainProfileContainer: {
@@ -163,7 +192,8 @@ const mapStateToProps = state => {
   return {
     selectUserProfilePic: selectUserProfilePic(state),
     selectUserName: selectUserName(state),
-    selectUserCreatedTours: selectUserCreatedTours(state)
+    selectUserCreatedTours: selectUserCreatedTours(state),
+    selectUserId: selectUserId(state)
   };
 };
 
