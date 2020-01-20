@@ -3,12 +3,13 @@ import { ScrollView, View, StyleSheet, Image } from "react-native";
 import TourContainer from "./TourContainer";
 import { connect } from "react-redux";
 import { navigate } from "../redux/render/render.action";
-import { selectUserName, selectUserProfilePic, selectUserCreatedTours } from "../redux/user/user.selectors";
+import {
+  selectUserName,
+  selectUserProfilePic,
+  selectUserCreatedTours
+} from "../redux/user/user.selectors";
 import {} from "../redux/tour/tour.selectors";
-<<<<<<< Updated upstream
-=======
 import axios from "axios";
->>>>>>> Stashed changes
 import {
   Container,
   Header,
@@ -23,20 +24,17 @@ import {
 
 class Profile extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       view: "MAIN"
-    }
+    };
   }
   render() {
     if (this.state.view === "MAIN") {
       return (
-        <Container style={localStyles.mainProfileContainer} >
+        <Container style={localStyles.mainProfileContainer}>
           <Header>
             <Left>
-<<<<<<< Updated upstream
-            <Button hasText transparent onPress={() => { this.props.navigate("REACT_NATIVE_HOME"); }}>
-=======
               <Button
                 hasText
                 transparent
@@ -44,29 +42,24 @@ class Profile extends Component {
                   this.props.navigate("REACT_NATIVE_HOME");
                 }}
               >
->>>>>>> Stashed changes
                 <Text>Back</Text>
               </Button>
             </Left>
             <Body>
-              <Title >Profile</Title>
+              <Title>Profile</Title>
             </Body>
             <Right />
           </Header>
           <Content>
             <View>
-            <Image
+              <Image
                 style={localStyles.profileImgLarge}
                 source={{
                   uri: `https://breakdownservices.s3.amazonaws.com/media/photos/20181/341794/9082DC9E-111F-4F77-9736BC2CCAFB0CA5.jpg`
                 }}
               />
               <Text>{this.props.selectUserName}</Text>
-<<<<<<< Updated upstream
-              <Button hasText transparent onPress={() => { this.setState({view: "USER_TOURS"})}}>
-=======
               <Button hasText transparent onPress={this.getUserTours}>
->>>>>>> Stashed changes
                 <Text>My Tours</Text>
               </Button>
               <Button hasText transparent onPress={() => {}}>
@@ -75,13 +68,19 @@ class Profile extends Component {
             </View>
           </Content>
         </Container>
-      )
+      );
     } else if (this.state.view === "USER_TOURS") {
       return (
         <Container style={localStyles.mainProfileContainer}>
           <Header>
             <Left>
-              <Button hasText transparent onPress={() => { this.props.navigate("REACT_NATIVE_HOME"); }}>
+              <Button
+                hasText
+                transparent
+                onPress={() => {
+                  this.props.navigate("REACT_NATIVE_HOME");
+                }}
+              >
                 <Text>Back</Text>
               </Button>
             </Left>
@@ -101,8 +100,8 @@ class Profile extends Component {
               <Text>{`${this.props.selectUserName}'s Tours`}</Text>
               <ScrollView style={localStyles.scrollViewContainer}>
                 {this.props.selectUserCreatedTours.map((prop, i) => (
-                <TourContainer key={i} tour={prop} />
-              ))}
+                  <TourContainer key={i} tour={prop} />
+                ))}
               </ScrollView>
             </View>
           </Content>
@@ -110,9 +109,6 @@ class Profile extends Component {
       );
     }
   }
-<<<<<<< Updated upstream
-};
-=======
 
   getUserTours() {
     axios
@@ -132,13 +128,12 @@ class Profile extends Component {
       });
   }
 }
->>>>>>> Stashed changes
 
 const localStyles = StyleSheet.create({
   mainProfileContainer: {
     flex: 1,
-    flexDirection: 'column',
-    alignContent: 'center',
+    flexDirection: "column",
+    alignContent: "center",
     width: "100%",
     height: "100%"
   },

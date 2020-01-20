@@ -65,27 +65,15 @@ const Create = props => {
         <Item floatingLabel>
             <Label>ENTER TOUR NAME</Label>
             <Input
-<<<<<<< Updated upstream
-            onChangeText={text => {
-                settourname(text);
-            }}
-=======
               onChangeText={text => {
                 props.setTourName(text);
               }}
->>>>>>> Stashed changes
             />
         </Item>
           <Button
             block
-<<<<<<< Updated upstream
-            style={styles.button}
-            onPress={() => {
-              props.setTourName(tourname);
-=======
             onPress={() => {
               props.navigate("CAMERA_PAGE");
->>>>>>> Stashed changes
             }}
             full
           >

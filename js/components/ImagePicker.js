@@ -5,15 +5,8 @@ import { StyleSheet, View } from "react-native";
 import ImagePicker from "react-native-image-picker";
 import { connect } from "react-redux";
 import { navigate } from "../redux/render/render.action";
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-import { selectTourName } from '../redux/tour/tour.selectors';
-=======
-=======
 import { selectTourName } from "../redux/tour/tour.selectors";
->>>>>>> Stashed changes
 import axios from "axios";
->>>>>>> master
 import {
   Container,
   Header,
@@ -24,7 +17,7 @@ import {
   Right,
   Button
 } from "native-base";
-​
+
 class ImageUpload extends React.Component {
   constructor(props) {
     super(props);
@@ -32,11 +25,7 @@ class ImageUpload extends React.Component {
       filePath: {}
     };
   }
-<<<<<<< Updated upstream
-​
-=======
 
->>>>>>> Stashed changes
   chooseFile = () => {
     // var options = {
     //   title: 'Select Image',
@@ -50,7 +39,6 @@ class ImageUpload extends React.Component {
     // };
     const options = {};
     ImagePicker.launchImageLibrary(options, response => {
-​
       const source = { uri: response.uri };
       // alert(JSON.stringify(source));
       axios
@@ -79,15 +67,6 @@ class ImageUpload extends React.Component {
                 alert("Error while sending the image to S3");
               }
             }
-<<<<<<< Updated upstream
-          }
-        };
-        xhr.setRequestHeader("Content-Type", "image/jpeg");
-        xhr.send({ uri: source.uri, type: "image/jpeg", name: "pickertest.jpg" });
-      })
-      .catch(err => alert(JSON.stringify(err)));
-​
-=======
           };
           xhr.setRequestHeader("Content-Type", "image/jpeg");
           xhr.send({
@@ -97,7 +76,6 @@ class ImageUpload extends React.Component {
           });
         })
         .catch(err => alert(JSON.stringify(err)));
->>>>>>> Stashed changes
       // console.log("Response = ", response);
       // const xhr = new XMLHttpRequest();
       // xhr.open(
@@ -118,7 +96,7 @@ class ImageUpload extends React.Component {
       // xhr.setRequestHeader("Content-Type", "image/jpeg");
       // xhr.send({ uri: response.uri, type: "image/jpeg", name: "myimage.jpg" });
     });
-​
+
     // You can also display the image using data:
     // let source = { uri: 'data:image/jpeg;base64,' + response.data };
   };
@@ -140,7 +118,6 @@ class ImageUpload extends React.Component {
           <Body />
           <Right />
         </Header>
-​
         <View style={styles.container}>
           <Text onPress={this.chooseFile} style={{ color: "#3fa4f0" }}>
             Choose File
@@ -158,22 +135,17 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
-​
+
 const mapStateToProps = state => {
   return {
     selectTourName: selectTourName(state)
   };
 };
-​
+
 const mapDispatchToProps = dispatch => {
   return {
     navigate: render => dispatch(navigate(render))
   };
 };
-<<<<<<< Updated upstream
-​
-export default connect(mapStateToProps, mapDispatchToProps)(ImageUpload);
-=======
 
 export default connect(mapStateToProps, mapDispatchToProps)(ImageUpload);
->>>>>>> Stashed changes
