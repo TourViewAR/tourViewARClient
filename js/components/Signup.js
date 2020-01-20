@@ -17,7 +17,7 @@ import {
 } from "native-base";
 import { connect } from "react-redux";
 import {
-  selectUserName,
+  selectUserId,
   selectUserPassword,
   selectUserEmail
 } from "../redux/user/user.selectors";
