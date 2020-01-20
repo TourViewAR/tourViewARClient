@@ -6,7 +6,8 @@ import { navigate } from "../redux/render/render.action";
 import {
   selectUserName,
   selectUserProfilePic,
-  selectUserCreatedTours
+  selectUserCreatedTours,
+  selectUserId
 } from "../redux/user/user.selectors";
 import {} from "../redux/tour/tour.selectors";
 import axios from "axios";
@@ -26,8 +27,10 @@ class Profile extends Component {
   constructor() {
     super();
     this.state = {
-      view: "MAIN"
+      view: "MAIN",
+      userTours: []
     };
+    this.getUserTours = this.getUserTours.bind(this);
   }
   render() {
     if (this.state.view === "MAIN") {
@@ -62,7 +65,13 @@ class Profile extends Component {
               <Button hasText transparent onPress={this.getUserTours}>
                 <Text>My Tours</Text>
               </Button>
-              <Button hasText transparent onPress={() => {}}>
+              <Button
+                hasText
+                transparent
+                onPress={() => {
+                  this.props.navigate("CREATE_TOUR");
+                }}
+              >
                 <Text>Create Tour</Text>
               </Button>
             </View>
@@ -99,8 +108,8 @@ class Profile extends Component {
               />
               <Text>{`${this.props.selectUserName}'s Tours`}</Text>
               <ScrollView style={localStyles.scrollViewContainer}>
-                {this.props.selectUserCreatedTours.map((prop, i) => (
-                  <TourContainer key={i} tour={prop} />
+                {this.state.userTours.map((tour, i) => (
+                  <TourContainer key={i} tour={tour} />
                 ))}
               </ScrollView>
             </View>
@@ -117,7 +126,6 @@ class Profile extends Component {
         { headers: { "Content-Type": "application/json" } }
       )
       .then(results => {
-        // alert(results.data)
         this.setState({
           userTours: results.data.rows,
           view: "USER_TOURS"
@@ -170,7 +178,8 @@ const mapStateToProps = state => {
   return {
     selectUserProfilePic: selectUserProfilePic(state),
     selectUserName: selectUserName(state),
-    selectUserCreatedTours: selectUserCreatedTours(state)
+    selectUserCreatedTours: selectUserCreatedTours(state),
+    selectUserId: selectUserId(state)
   };
 };
 

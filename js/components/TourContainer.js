@@ -8,13 +8,24 @@ import {
   Button
 } from "react-native";
 
-import { ViroARSceneNavigator } from "react-viro";
+import {
+  ViroARSceneNavigator,
+  Viro360Image,
+  ViroAmbientLight,
+  ViroARScene,
+  ViroNode,
+  ViroSpotLight,
+  ViroUtils,
+} from "react-viro";
 
+var InfoElement = require("../custom_controls/InfoElement");
+let polarToCartesian = ViroUtils.polarToCartesian;
+var slutWindowCard = require("../res/infocard_slut.png");
 var InitialARScene = require("../HelloWorldSceneAR.js");
 
 class TourContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       navigator: "PROFILE"
     };
@@ -28,11 +39,10 @@ class TourContainer extends Component {
             style={localStyles.icon}
             source={{
               uri:
-                "https://cdn.villaway.com/202303/images/55397fcfe4b08b8483a50794/tn_90lpzueywp_202303.jpg"
+                `${this.props.tour.pic_url}`
             }}
           />
-          <Text>{`experience name placeholder`}</Text>
-          <Text>{`experience details placeholder`}</Text>
+          <Text>{`${this.props.tour.tour_name}`}</Text>
           <Button
             style={localStyles.button}
             onPress={() => this.setState({ navigator: "AR" })}
@@ -42,7 +52,7 @@ class TourContainer extends Component {
       );
     } else if (this.state.navigator === "AR") {
       // this should pass upwards to the Profile container so that it overtakes the entire page instead of rendering in context of the other experience pods
-      return <ViroARSceneNavigator initialScene={{ scene: InitialARScene }} />;
+      return <ViroARSceneNavigator initialScene={{ scene: InitialARScene }}/>
     }
   }
 }

@@ -112,18 +112,20 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
-​
 const mapStateToProps = state => {
   return {
     selectTourName: selectTourName(state),
     selectUserId: selectUserId(state)
   };
 };
-​
 const mapDispatchToProps = dispatch => {
   return {
     navigate: render => dispatch(navigate(render)),
     setTourName: name => dispatch(setTourName(name))
   };
 };
+<<<<<<< HEAD
 export default connect(mapStateToProps, mapDispatchToProps)(UseCamera);
+=======
+export default connect(mapStateToProps, mapDispatchToProps)(UseCamera);
+>>>>>>> master

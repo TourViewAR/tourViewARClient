@@ -1,23 +1,12 @@
-<<<<<<< Updated upstream
-import React, { Component, useState } from "react";
-=======
-import React, { useState, useCallback } from "react";
+import React, { Component, useState, useCallback } from "react";
 import axios from "axios";
->>>>>>> Stashed changes
 import { ScrollView, View, StyleSheet, Image } from "react-native";
-​
-import TourContainer from "./TourContainer";
 import { connect } from "react-redux";
 import { navigate } from "../redux/render/render.action";
-<<<<<<< Updated upstream
-import { setTourName } from '../redux/tour/tour.action';
-​
-=======
 import { setTourName } from "../redux/tour/tour.action";
 import { selectTourName } from "../redux/tour/tour.selectors";
 import { selectUserId } from "../redux/user/user.selectors";
 
->>>>>>> Stashed changes
 import {
   Container,
   Header,
@@ -26,23 +15,14 @@ import {
   Left,
   Body,
   Right,
-  Button
+  Button,
+  Item,
+  Label,
+  Input
 } from "native-base";
-​
 const Create = props => {
-<<<<<<< Updated upstream
-    [tourname, settourname] = useState('');
-=======
-  let [tourname, tournamestate] = useState("");
-
-  // const moveToOptions = useCallback(() => {
-  //   // alert(`User ${props.selectTourName} has been created!`);
-  //   props.navigate("CAMERA_PAGE");
-  // });
-
->>>>>>> Stashed changes
   return (
-    <Container style={{ width: 400, height: 700 }}>
+    <Container style={{ width: "100%", height: "100%" }}>
       <Header>
         <Left>
           <Button
@@ -62,14 +42,14 @@ const Create = props => {
       </Header>
       <Content>
         <View style={{ marginTop: 50 }}>
-        <Item floatingLabel>
+          <Item floatingLabel>
             <Label>ENTER TOUR NAME</Label>
             <Input
               onChangeText={text => {
                 props.setTourName(text);
               }}
             />
-        </Item>
+          </Item>
           <Button
             block
             onPress={() => {
@@ -84,7 +64,6 @@ const Create = props => {
     </Container>
   );
 };
-​
 const localStyles = StyleSheet.create({
   container: {
     flex: 1,
@@ -97,21 +76,16 @@ const localStyles = StyleSheet.create({
     borderRadius: 10
   }
 });
-​
 const mapDispatchToProps = dispatch => {
   return {
     navigate: render => dispatch(navigate(render)),
-    setTourName: (name) => dispatch(setTourName(name))
+    setTourName: name => dispatch(setTourName(name))
   };
 };
-<<<<<<< Updated upstream
-​
-export default connect(mapStateToProps, mapDispatchToProps)(Create);
-=======
+
 const mapStateToProps = state => {
   return {
     selectTourName: selectTourName(state)
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Create);
->>>>>>> Stashed changes
