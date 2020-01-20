@@ -8,8 +8,19 @@ import {
   Button
 } from "react-native";
 
-import { ViroARSceneNavigator } from "react-viro";
+import {
+  ViroARSceneNavigator,
+  Viro360Image,
+  ViroAmbientLight,
+  ViroARScene,
+  ViroNode,
+  ViroSpotLight,
+  ViroUtils,
+} from "react-viro";
 
+var InfoElement = require("../custom_controls/InfoElement");
+let polarToCartesian = ViroUtils.polarToCartesian;
+var slutWindowCard = require("../res/infocard_slut.png");
 var InitialARScene = require("../HelloWorldSceneAR.js");
 
 class TourContainer extends Component {
@@ -41,7 +52,7 @@ class TourContainer extends Component {
       );
     } else if (this.state.navigator === "AR") {
       // this should pass upwards to the Profile container so that it overtakes the entire page instead of rendering in context of the other experience pods
-      return <ViroARSceneNavigator initialScene={{ scene: InitialARScene }} />;
+      return <ViroARSceneNavigator initialScene={{ scene: InitialARScene }}/>
     }
   }
 }
