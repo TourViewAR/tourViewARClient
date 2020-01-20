@@ -5,7 +5,11 @@ import { StyleSheet, View } from "react-native";
 import ImagePicker from "react-native-image-picker";
 import { connect } from "react-redux";
 import { navigate } from "../redux/render/render.action";
+<<<<<<< HEAD
 import { selectTourName } from '../redux/tour/tour.selectors';
+=======
+import axios from "axios";
+>>>>>>> master
 import {
   Container,
   Header,
