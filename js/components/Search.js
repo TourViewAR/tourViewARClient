@@ -30,7 +30,9 @@ const Search = props => {
       .get(
         "http://tourviewarserver.herokuapp.com/api/search",
         {
-          search: search
+          params: {
+            search: search
+          }
         },
         {
           headers: {
@@ -40,6 +42,11 @@ const Search = props => {
       )
       .then(results => {
         setSearchResults(results.data.rows);
+
+        alert("Success");
+      })
+      .catch(err => {
+        alert(err);
       });
   });
   return (
@@ -59,16 +66,25 @@ const Search = props => {
         <Body>
           <Title>Search Tour</Title>
         </Body>
-        <Right />
+        <Right>
+          <Text>{`${search}`}</Text>
+        </Right>
         {/* <TextInput placeholder="Type here to search" /> */}
       </Header>
       <Content>
-        <View>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            alignSelf: "center",
+            marginTop: 30
+          }}
+        >
           {/* <Text>SEARCH</Text> */}
           <TextInput
             style={{
-              height: 40,
-              width: 400,
+              height: 45,
+              width: 300,
               borderColor: "gray",
               borderWidth: 1,
               borderRadius: 4
@@ -77,13 +93,21 @@ const Search = props => {
             onChangeText={text => {
               setSearch(text);
             }}
-          />
-          <ScrollView style={localStyles.container}>
-            {searchResults.map((prop, i) => (
-              <TourContainer key={i} tour={prop} />
-            ))}
-          </ScrollView>
+          ></TextInput>
+          <Button
+            primary
+            onPress={() => {
+              searchRequest();
+            }}
+          >
+            <Text>Search</Text>
+          </Button>
         </View>
+        {/* <ScrollView style={localStyles.container}>
+          {searchResults.map((prop, i) => (
+            <TourContainer key={i} tour={prop} />
+          ))}
+        </ScrollView> */}
       </Content>
     </Container>
   );
