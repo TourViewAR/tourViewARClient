@@ -17,7 +17,7 @@ import {
   Button
 } from "native-base";
 ​
-const Create = props => {
+const CreateOptions = props => {
     [tourname, settourname] = useState('');
   return (
     <Container style={{ width: "100%", height: "100%" }}>

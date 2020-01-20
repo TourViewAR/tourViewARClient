@@ -10,7 +10,7 @@ import {
   selectUserId
 } from "../redux/user/user.selectors";
 import {} from "../redux/tour/tour.selectors";
-import axios from 'axios';
+import axios from "axios";
 import {
   Container,
   Header,
@@ -30,12 +30,13 @@ class Profile extends Component {
       view: "MAIN",
       userTours: [
         {
-          pic_url: 'https://i.pinimg.com/originals/15/19/65/1519654484f5159bd5d0cd87f0a2c42f.jpg',
-          tour_name: 'hunters spicy tour'
+          pic_url:
+            "https://i.pinimg.com/originals/15/19/65/1519654484f5159bd5d0cd87f0a2c42f.jpg",
+          tour_name: "hunters spicy tour"
         },
         {
-          pic_url: 'https://i.ytimg.com/vi/OjaAxb7mqDE/maxresdefault.jpg',
-          tour_name: 'the other spicy tour'
+          pic_url: "https://i.ytimg.com/vi/OjaAxb7mqDE/maxresdefault.jpg",
+          tour_name: "the other spicy tour"
         }
       ]
     };
@@ -47,12 +48,12 @@ class Profile extends Component {
         <Container style={localStyles.mainProfileContainer}>
           <Header>
             <Left>
-            <Button
-              hasText
-              transparent
-              onPress={() => {
-                this.props.navigate("REACT_NATIVE_HOME");
-              }}
+              <Button
+                hasText
+                transparent
+                onPress={() => {
+                  this.props.navigate("REACT_NATIVE_HOME");
+                }}
               >
                 <Text>Back</Text>
               </Button>
@@ -71,13 +72,7 @@ class Profile extends Component {
                 }}
               />
               <Text>{this.props.selectUserName}</Text>
-              <Button
-                hasText
-                transparent
-                onPress={
-                  this.getUserTours
-                }
-              >
+              <Button hasText transparent onPress={this.getUserTours}>
                 <Text>My Tours</Text>
               </Button>
               <Button
@@ -135,21 +130,22 @@ class Profile extends Component {
   }
 
   getUserTours() {
-    axios.get(
-      `http://tourviewarserver.herokuapp.com/api/tours/${this.props.selectUserId}`,
-      { headers: { "Content-Type": "application/json" } }
-    )
-    .then((results) => {
-      this.setState({
-        userTours: results.data.rows,
-        view: "USER_TOURS"
+    axios
+      .get(
+        `http://tourviewarserver.herokuapp.com/api/tours/${this.props.selectUserId}`,
+        { headers: { "Content-Type": "application/json" } }
+      )
+      .then(results => {
+        this.setState({
+          userTours: results.data.rows,
+          view: "USER_TOURS"
+        });
       })
-    })
-    .catch((err) => {
-      alert(err)
-    })
+      .catch(err => {
+        alert(err);
+      });
   }
-};
+}
 
 const localStyles = StyleSheet.create({
   mainProfileContainer: {

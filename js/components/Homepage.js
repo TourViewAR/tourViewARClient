@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Image, StyleSheet } from "react-native";
+import { Image, StyleSheet, Alert } from "react-native";
 
 import { connect } from "react-redux";
 
@@ -38,6 +38,17 @@ import { selectTourName } from "../redux/tour/tour.selectors";
 // Icon.loadFont();
 
 const HomePage = props => {
+  const testing = () => {
+    const title = "here is the title";
+    const message = "blahblahblah";
+    const buttons = [
+      { text: "cancel", type: "cancel" },
+      { text: " option A" },
+      { text: "option B" }
+    ];
+
+    Alert.alert(title, message, buttons);
+  };
   return (
     <Container style={{ width: "100%", height: "100%" }}>
       <Header>
@@ -72,7 +83,18 @@ const HomePage = props => {
             }}
             full
           >
-            <Text>Search</Text>
+            <Text>Search Tour</Text>
+          </Button>
+          <Button
+            block
+            light
+            style={styles.button}
+            onPress={() => {
+              props.navigate("CREATE_TOUR");
+            }}
+            full
+          >
+            <Text>Create A New Tour</Text>
           </Button>
           <Button
             block
@@ -83,6 +105,14 @@ const HomePage = props => {
             full
           >
             <Text>Log Out</Text>
+          </Button>
+
+          <Button
+            onPress={() => {
+              testing();
+            }}
+          >
+            <Text>Test</Text>
           </Button>
         </View>
       </Content>

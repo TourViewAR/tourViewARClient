@@ -2,7 +2,7 @@ import React, { Component, useState, useCallback } from "react";
 import { ScrollView, View, StyleSheet, Image, TextInput } from "react-native";
 import axios from "axios";
 
-// import TourContainer from "./TourContainer";
+import TourContainer from "./TourContainer";
 import { connect } from "react-redux";
 import { navigate } from "../redux/render/render.action";
 import {
@@ -20,7 +20,7 @@ import Axios from "axios";
 
 const Search = props => {
   const [search, setSearch] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState([[]]);
 
   const searchRequest = useCallback(() => {
     axios
@@ -38,9 +38,11 @@ const Search = props => {
         }
       )
       .then(results => {
-        setSearchResults(results.data.rows);
-
-        alert("Success");
+        if (results.data[0][0] === undefined) {
+          alert("No Search has been found!");
+        } else {
+          setSearchResults(JSON.stringify(results.data));
+        }
       })
       .catch(err => {
         alert(err);
@@ -63,10 +65,6 @@ const Search = props => {
         <Body>
           <Title>Search Tour</Title>
         </Body>
-        <Right>
-          <Text>{`${search}`}</Text>
-        </Right>
-        {/* <TextInput placeholder="Type here to search" /> */}
       </Header>
       <Content>
         <View
@@ -100,11 +98,11 @@ const Search = props => {
             <Text>Search</Text>
           </Button>
         </View>
-        {/* <ScrollView style={localStyles.container}>
-          {searchResults.map((prop, i) => (
-            <TourContainer key={i} tour={prop} />
+        <ScrollView style={localStyles.container}>
+          {searchResults[0].map((tour, i) => (
+            <TourContainer key={i} tour={tour} />
           ))}
-        </ScrollView> */}
+        </ScrollView>
       </Content>
     </Container>
   );
