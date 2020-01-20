@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { ScrollView, View, StyleSheet, Image } from "react-native";
 import TourContainer from "./TourContainer";
 import { connect } from "react-redux";
