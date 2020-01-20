@@ -41,28 +41,31 @@ class ImageUpload extends React.Component {
     ImagePicker.launchImageLibrary(options, response => {
       const source = { uri: response.uri };
       // alert(JSON.stringify(source));
-      axios.get(`http://tourviewarserver.herokuapp.com/api/getpresignedurl/panoimages`)
-      .then(results => {
-        const xhr = new XMLHttpRequest();
-        xhr.open(
-          "PUT", results.data.presignedUrl
-        );
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === 4) {
-            console.log(xhr.status);
-            console.log(xhr);
-            if (xhr.status === 200) {
-              alert("Image successfully uploaded to S3");
-              axios.post(`http://tourviewarserver.herokuapp.com/api/newtour`, {
-                id: results.data.id,
-                img_url: results.data.publicUrl,
-                tour_name: this.props.selectTourName,
-                id_user: this.props.selectUserId
-              })
-              .then(results => this.props.navigate('CREATE_AR_SCENE'))
-              .catch(err => alert(err));
-            } else {
-              alert("Error while sending the image to S3");
+      axios
+        .get(
+          `http://tourviewarserver.herokuapp.com/api/getpresignedurl/panoimages`
+        )
+        .then(results => {
+          const xhr = new XMLHttpRequest();
+          xhr.open("PUT", results.data.presignedUrl);
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+              console.log(xhr.status);
+              console.log(xhr);
+              if (xhr.status === 200) {
+                alert("Image successfully uploaded to S3");
+                axios
+                  .post(`http://tourviewarserver.herokuapp.com/api/newtour`, {
+                    id: results.data.id,
+                    img_url: results.data.publicUrl,
+                    tour_name: this.props.selectTourName,
+                    id_user: this.props.selectUserId
+                  })
+                  .then(results => this.props.navigate("CREATE_AR_SCENE"))
+                  .catch(err => alert(err));
+              } else {
+                alert("Error while sending the image to S3");
+              }
             }
           }
         };

@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { Component, useState, useCallback } from "react";
+import axios from "axios";
 import { ScrollView, View, StyleSheet, Image } from "react-native";
 import { connect } from "react-redux";
 import { navigate } from "../redux/render/render.action";
 import { setTourName } from "../redux/tour/tour.action";
+import { selectTourName } from "../redux/tour/tour.selectors";
+import { selectUserId } from "../redux/user/user.selectors";
+
 import {
   Container,
   Header,
@@ -17,7 +21,6 @@ import {
   Input
 } from "native-base";
 const Create = props => {
-  [tourname, settourname] = useState("");
   return (
     <Container style={{ width: "100%", height: "100%" }}>
       <Header>
@@ -33,7 +36,9 @@ const Create = props => {
           </Button>
         </Left>
         <Body />
-        <Right />
+        <Right>
+          <Text>{`${props.selectTourName}`} </Text>
+        </Right>
       </Header>
       <Content>
         <View style={{ marginTop: 50 }}>
@@ -41,14 +46,14 @@ const Create = props => {
             <Label>ENTER TOUR NAME</Label>
             <Input
               onChangeText={text => {
-                settourname(text);
+                props.setTourName(text);
               }}
             />
           </Item>
           <Button
             block
-            onPress={tourname => {
-              props.setTourName(tourname);
+            onPress={() => {
+              props.navigate("CAMERA_PAGE");
             }}
             full
           >
@@ -77,4 +82,10 @@ const mapDispatchToProps = dispatch => {
     setTourName: name => dispatch(setTourName(name))
   };
 };
-export default connect(null, mapDispatchToProps)(Create);
+
+const mapStateToProps = state => {
+  return {
+    selectTourName: selectTourName(state)
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Create);
