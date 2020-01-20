@@ -98,12 +98,14 @@ const localStyles = StyleSheet.create({
   mainProfileContainer: {
     flex: 1,
     flexDirection: 'column',
-    alignContent: 'center'
+    alignContent: 'center',
+    width: "100%",
+    height: "100%"
   },
   myToursContainer: {
     flex: 1,
-    width: 400,
-    height: 700
+    width: "100%",
+    height: "100%"
   },
   scrollViewContainer: {
     flex: 1,
