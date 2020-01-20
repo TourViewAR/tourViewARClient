@@ -31,6 +31,7 @@ import {
   Badge,
   Icon
 } from "native-base";
+import { selectTourName } from "../redux/tour/tour.selectors";
 
 // import Icon from "react-native-vector-icons/MaterialIcons";
 

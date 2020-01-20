@@ -1,11 +1,8 @@
 import React, { Component, useState } from "react";
 import { ScrollView, View, StyleSheet, Image } from "react-native";
-​
-import TourContainer from "./TourContainer";
 import { connect } from "react-redux";
 import { navigate } from "../redux/render/render.action";
 import { setTourName } from '../redux/tour/tour.action';
-​
 import {
   Container,
   Header,
@@ -16,7 +13,6 @@ import {
   Right,
   Button
 } from "native-base";
-​
 const Create = props => {
     [tourname, settourname] = useState('');
   return (
@@ -61,7 +57,6 @@ const Create = props => {
     </Container>
   );
 };
-​
 const localStyles = StyleSheet.create({
   container: {
     flex: 1,
@@ -74,7 +69,6 @@ const localStyles = StyleSheet.create({
     borderRadius: 10
   }
 });
-​
 const mapDispatchToProps = dispatch => {
   return {
     navigate: render => dispatch(navigate(render)),
