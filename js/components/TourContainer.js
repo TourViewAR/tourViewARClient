@@ -28,11 +28,11 @@ class TourContainer extends Component {
             style={localStyles.icon}
             source={{
               uri:
-                "https://cdn.villaway.com/202303/images/55397fcfe4b08b8483a50794/tn_90lpzueywp_202303.jpg"
+                `${this.props.pic_url}`
             }}
           />
-          <Text>{`experience name placeholder`}</Text>
-          <Text>{`experience details placeholder`}</Text>
+          <Text>{`${this.props.tour_name}`}</Text>
+          {/* <Text>{`experience details placeholder`}</Text> */}
           <Button
             style={localStyles.button}
             onPress={() => this.setState({ navigator: "AR" })}
