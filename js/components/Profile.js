@@ -12,7 +12,8 @@ import {
   Left,
   Body,
   Right,
-  Button
+  Button,
+  Title
 } from "native-base";
 
 import {
@@ -35,7 +36,9 @@ const Profile = props => {
             <Text>Back</Text>
           </Button>
         </Left>
-        <Body />
+        <Body>
+          <Title>Profile</Title>
+        </Body>
         <Right />
       </Header>
       <Content>

@@ -13,7 +13,8 @@ import {
   Left,
   Body,
   Right,
-  Button
+  Button,
+  Title
 } from "native-base";
 
 class ImageUpload extends React.Component {
@@ -76,7 +77,9 @@ class ImageUpload extends React.Component {
               <Text>Back</Text>
             </Button>
           </Left>
-          <Body />
+          <Body>
+            <Title>Upload Image</Title>
+          </Body>
           <Right />
         </Header>
 
