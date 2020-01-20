@@ -13,8 +13,8 @@ import { ViroARSceneNavigator } from "react-viro";
 var InitialARScene = require("../HelloWorldSceneAR.js");
 
 class TourContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       navigator: "PROFILE"
     };
@@ -28,11 +28,10 @@ class TourContainer extends Component {
             style={localStyles.icon}
             source={{
               uri:
-                `${this.props.pic_url}`
+                `${this.props.tour.pic_url}`
             }}
           />
-          <Text>{`${this.props.tour_name}`}</Text>
-          {/* <Text>{`experience details placeholder`}</Text> */}
+          <Text>{`${this.props.tour.tour_name}`}</Text>
           <Button
             style={localStyles.button}
             onPress={() => this.setState({ navigator: "AR" })}
