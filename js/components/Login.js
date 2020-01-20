@@ -56,9 +56,8 @@ var sharedProps = {
   apiKey: "API_KEY_HERE"
 };
 
-// Sets the default scene you want for AR and VR
+// Sets the default scene you want for AR
 var InitialARScene = require("../HelloWorldSceneAR.js");
-// var InitialVRScene = require('./js/HelloWorldScene');
 
 var UNSET = "UNSET";
 var VR_NAVIGATOR_TYPE = "VR";
