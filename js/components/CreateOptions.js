@@ -38,23 +38,21 @@ const Create = props => {
       </Header>
       <Content>
         <View style={{ marginTop: 50 }}>
-        <Item floatingLabel>
-            <Label>ENTER TOUR NAME</Label>
-            <Input
-            onChangeText={text => {
-                settourname(text);
-            }}
-            />
-        </Item>
           <Button
-            block
-            style={styles.button}
+            vertical
             onPress={() => {
-              props.setTourName(tourname);
+              props.navigate("CAMERA_PAGE");
             }}
-            full
           >
-            <Text>Submit</Text>
+            <Text>Take a Photo</Text>
+          </Button>
+          <Button
+            vertical
+            onPress={() => {
+              props.navigate("IMAGE_UPLOAD");
+            }}
+          >
+            <Text>Upload Image</Text>
           </Button>
         </View>
       </Content>
@@ -78,8 +76,7 @@ const localStyles = StyleSheet.create({
 const mapDispatchToProps = dispatch => {
   return {
     navigate: render => dispatch(navigate(render)),
-    setTourName: (name) => dispatch(setTourName(name))
   };
 };
 ​
-export default connect(mapStateToProps, mapDispatchToProps)(Create);
+export default connect(null, mapDispatchToProps)(CreateOptions);
