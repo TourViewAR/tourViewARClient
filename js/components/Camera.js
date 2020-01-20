@@ -4,92 +4,6 @@ import { StyleSheet, View } from "react-native";
 import ImagePicker from "react-native-image-picker";
 import { connect } from "react-redux";
 import { navigate } from "../redux/render/render.action";
-import {
-  Container,
-  Header,
-  Content,
-  Text,
-  Left,
-  Body,
-  Right,
-  Title,
-  Button
-} from "native-base";
-class UseCamera extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  takePhoto = () => {
-    let options = {
-      storageOptions: {
-        cameraRoll: true,
-        skipBackup: true,
-        path: "images"
-      }
-    };
-    ImagePicker.launchCamera(options, response => {
-      if (response.didCancel) {
-        console.log("User cancelled image picker");
-      } else if (response.error) {
-        console.log("ImagePicker Error: ", response.error);
-      } else {
-        const source = { uri: response.uri };
-        console.log("response", JSON.stringify(response));
-        alert(JSON.stringify(source));
-      }
-    });
-  };
-  render() {
-    return (
-      <Container style={{ width: "100%", height: "100%" }}>
-        <Header>
-          <Left>
-            <Button
-              hasText
-              transparent
-              onPress={() => {
-                this.props.navigate("REACT_NATIVE_HOME");
-              }}
-            >
-              <Text>Back</Text>
-            </Button>
-          </Left>
-          <Body>
-            <Title>Take Photo</Title>
-          </Body>
-          <Right />
-        </Header>
-        <View style={styles.container}>
-          <Text style={{ color: "#3FA4F0" }} onPress={this.takePhoto}>
-            Take Photo
-          </Text>
-        </View>
-      </Container>
-    );
-  }
-}
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
-
-const mapDispatchToProps = dispatch => {
-  return {
-    navigate: render => dispatch(navigate(render))
-  };
-};
-
-export default connect(null, mapDispatchToProps)(UseCamera);
-// jshint esversion:6
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import ImagePicker from "react-native-image-picker";
-import { connect } from "react-redux";
-import { navigate } from "../redux/render/render.action";
 import { selectTourName } from '../redux/tour/tour.selectors';
 import {selectUserId} from '../redux/user/user.selectors';
 import {
@@ -193,18 +107,15 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
-​
 const mapStateToProps = state => {
   return {
     selectTourName: selectTourName(state),
     selectUserId: selectUserId(state)
   };
 };
-​
 const mapDispatchToProps = dispatch => {
   return {
     navigate: render => dispatch(navigate(render))
   };
 };
-​
 export default connect(mapStateToProps, mapDispatchToProps)(UseCamera);

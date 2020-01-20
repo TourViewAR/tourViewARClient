@@ -15,17 +15,17 @@ import {
   Left,
   Body,
   Right,
-  Button
+  Button,
 } from "native-base";
-​
+
 class ImageUpload extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       filePath: {}
     };
-  }
-​
+  };
+
   chooseFile = () => {
     // var options = {
     //   title: 'Select Image',
@@ -39,7 +39,6 @@ class ImageUpload extends React.Component {
     // };
     const options = {};
     ImagePicker.launchImageLibrary(options, response => {
-​
       const source = { uri: response.uri };
       // alert(JSON.stringify(source));
       axios.get(`http://tourviewarserver.herokuapp.com/api/getpresignedurl/panoimages`)
@@ -71,7 +70,6 @@ class ImageUpload extends React.Component {
         xhr.send({ uri: source.uri, type: "image/jpeg", name: "pickertest.jpg" });
       })
       .catch(err => alert(JSON.stringify(err)));
-​
       // console.log("Response = ", response);
       // const xhr = new XMLHttpRequest();
       // xhr.open(
@@ -92,7 +90,7 @@ class ImageUpload extends React.Component {
       // xhr.setRequestHeader("Content-Type", "image/jpeg");
       // xhr.send({ uri: response.uri, type: "image/jpeg", name: "myimage.jpg" });
     });
-​
+
     // You can also display the image using data:
     // let source = { uri: 'data:image/jpeg;base64,' + response.data };
   };
@@ -114,7 +112,6 @@ class ImageUpload extends React.Component {
           <Body />
           <Right />
         </Header>
-​
         <View style={styles.container}>
           <Text onPress={this.chooseFile} style={{ color: "#3fa4f0" }}>
             Choose File
@@ -132,17 +129,17 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
-​
+
 const mapStateToProps = state => {
   return {
     selectTourName: selectTourName(state)
   };
 };
-​
+
 const mapDispatchToProps = dispatch => {
   return {
     navigate: render => dispatch(navigate(render))
   };
 };
-​
+
 export default connect(mapStateToProps, mapDispatchToProps)(ImageUpload);
