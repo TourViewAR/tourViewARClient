@@ -74,7 +74,9 @@ class Profile extends Component {
               <Button
                 hasText
                 transparent
-                onPress={() => {}}
+                onPress={() => {
+                  this.props.navigate("CREATE_TOUR");
+                }}
               >
                 <Text>Create Tour</Text>
               </Button>
