@@ -33,28 +33,20 @@ var slutWindowCard = require("./res/infocard_slut.png");
 export default class HelloWorldSceneAR extends Component {
   constructor() {
     super();
-
-    // Set initial state here
     this.state = {
       text: "Initializing AR..."
     };
-
-    // bind 'this' to functions
     this._onInitialized = this._onInitialized.bind(this);
   }
 
   render() {
     return (
       <ViroARScene onTrackingUpdated={this._onInitialized}>
-        {/* <Viro360Image source={require('./res/amsterdam.jpg')} /> */}
         <Viro360Image
           source={{
-            uri:
-              "https://i.pinimg.com/originals/11/99/42/119942206240512b97077429723f1885.jpg"
+            uri: "https://i.pinimg.com/originals/11/99/42/119942206240512b97077429723f1885.jpg"
           }}
         />
-        {/* <ViroText text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style={styles.helloWorldTextStyle} /> */}
-        {/* <ViroBox position={[0, -.5, -1]} scale={[.3, .3, .1]} materials={["grid"]} animation={{name: "rotate", run: true, loop: true}} /> */}
         <ViroAmbientLight color={"#aaaaaa"} />
         <ViroSpotLight
           innerAngle={5}
@@ -74,7 +66,6 @@ export default class HelloWorldSceneAR extends Component {
             contentCardScale={[3.67, 4, 1]}
             position={polarToCartesian([-5, 0, 0])}
           />
-          {/* <Viro3DObject source={require('./res/emoji_smile/emoji_smile.vrx')} position={[0, -.5, 0]} scale={[.2, .2, .2]} type="VRX" /> */}
         </ViroNode>
       </ViroARScene>
     );
@@ -83,7 +74,7 @@ export default class HelloWorldSceneAR extends Component {
   _onInitialized(state, reason) {
     if (state == ViroConstants.TRACKING_NORMAL) {
       this.setState({
-        text: "ADHd!!!!!"
+        text: "Initializing AR..."
       });
     } else if (state == ViroConstants.TRACKING_NONE) {
       // Handle loss of tracking
@@ -91,7 +82,7 @@ export default class HelloWorldSceneAR extends Component {
   }
 }
 
-/* ----- END COMPONENT ----- */
+/* ----- COMPONENT STYLES ----- */
 
 var styles = StyleSheet.create({
   helloWorldTextStyle: {
@@ -119,3 +110,8 @@ ViroAnimations.registerAnimations({
 });
 
 module.exports = HelloWorldSceneAR;
+
+{/* <Viro360Image source={require('./res/amsterdam.jpg')} /> */}
+{/* <ViroText text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style={styles.helloWorldTextStyle} /> */}
+{/* <ViroBox position={[0, -.5, -1]} scale={[.3, .3, .1]} materials={["grid"]} animation={{name: "rotate", run: true, loop: true}} /> */}
+{/* <Viro3DObject source={require('./res/emoji_smile/emoji_smile.vrx')} position={[0, -.5, 0]} scale={[.2, .2, .2]} type="VRX" /> */}
