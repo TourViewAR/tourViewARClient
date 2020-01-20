@@ -1,9 +1,10 @@
 import React from "react";
 import { ScrollView, View, StyleSheet, Image } from "react-native";
-
 import TourContainer from "./TourContainer";
 import { connect } from "react-redux";
 import { navigate } from "../redux/render/render.action";
+import { selectUserName } from "../redux/user/user.selectors"
+import {} from "../redux/tour/tour.selectors"
 import {
   Container,
   Header,
@@ -49,11 +50,16 @@ const Profile = props => {
               uri: `https://breakdownservices.s3.amazonaws.com/media/photos/20181/341794/9082DC9E-111F-4F77-9736BC2CCAFB0CA5.jpg`
             }}
           />
+<<<<<<< HEAD
           <Text>{props.selectUserName}</Text>
+=======
+          <Text>{`${selectUserName}'s tours`}</Text>
+>>>>>>> master
           <ScrollView style={localStyles.container}>
-            {/* {props.map((prop, i) => (
+            {props.map((prop, i) => (
             <TourContainer key={i} tour={prop} />
-          ))} */}
+          ))}
+            {/* <TourContainer />
             <TourContainer />
             <TourContainer />
             <TourContainer />
@@ -65,8 +71,7 @@ const Profile = props => {
             <TourContainer />
             <TourContainer />
             <TourContainer />
-            <TourContainer />
-            <TourContainer />
+            <TourContainer /> */}
           </ScrollView>
         </View>
       </Content>
