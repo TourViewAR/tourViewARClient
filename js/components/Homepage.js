@@ -55,7 +55,7 @@ const HomePage = props => {
         </View>
         <CardItem>
           <Body style={{ alignItems: "center" }}>
-            <View>
+            <View style={{ alignItems: "center" }}>
               <Thumbnail large source={require("../res/aaron.jpg")}></Thumbnail>
               <Text>{props.selectUserName}</Text>
             </View>
@@ -140,7 +140,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     selectNavigator: selectNavigator(state),
-    selectUserProfilePic: selectUserProfilePic(state)
+    selectUserProfilePic: selectUserProfilePic(state),
+    selectUserName: selectUserName(state)
   };
 };
 
