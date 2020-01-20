@@ -15,6 +15,11 @@ import {
   Button
 } from "native-base";
 
+import {
+  selectUserName,
+  selectUserProfilePic
+} from "../redux/user/user.selectors";
+
 const Profile = props => {
   return (
     <Container style={{ width: 400, height: 700 }}>
@@ -41,7 +46,7 @@ const Profile = props => {
               uri: `https://breakdownservices.s3.amazonaws.com/media/photos/20181/341794/9082DC9E-111F-4F77-9736BC2CCAFB0CA5.jpg`
             }}
           />
-          <Text>JULIAN'S JUNK</Text>
+          <Text>{props.selectUserName}</Text>
           <ScrollView style={localStyles.container}>
             {/* {props.map((prop, i) => (
             <TourContainer key={i} tour={prop} />
@@ -85,4 +90,11 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Profile);
+const mapStateToProps = state => {
+  return {
+    selectUserProfilePic: selectUserProfilePic(state),
+    selectUserName: selectUserName(state)
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
