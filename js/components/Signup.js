@@ -44,7 +44,10 @@ const Signup = props => {
           }
         }
       )
-      .then(() => alert(`User ${props.selectUserName} has been created!`))
+      .then(() => {
+        alert(`User ${props.selectUserName} has been created!`);
+        props.navigate("LOGIN_PAGE");
+      })
       .catch(err => alert(err));
   });
 
