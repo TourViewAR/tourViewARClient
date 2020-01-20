@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { ScrollView, View, StyleSheet, Image } from "react-native";
 import TourContainer from "./TourContainer";
 import { connect } from "react-redux";
@@ -13,12 +13,18 @@ import {
   Left,
   Body,
   Right,
-  Button
+  Button,
+  Title
 } from "native-base";
+
+import {
+  selectUserName,
+  selectUserProfilePic
+} from "../redux/user/user.selectors";
 
 const Profile = props => {
   return (
-    <Container style={{ width: 400, height: 700 }}>
+    <Container style={{ width: "100%", height: "100%" }}>
       <Header>
         <Left>
           <Button
@@ -31,7 +37,9 @@ const Profile = props => {
             <Text>Back</Text>
           </Button>
         </Left>
-        <Body />
+        <Body>
+          <Title>Profile</Title>
+        </Body>
         <Right />
       </Header>
       <Content>
@@ -42,7 +50,11 @@ const Profile = props => {
               uri: `https://breakdownservices.s3.amazonaws.com/media/photos/20181/341794/9082DC9E-111F-4F77-9736BC2CCAFB0CA5.jpg`
             }}
           />
+<<<<<<< HEAD
+          <Text>{props.selectUserName}</Text>
+=======
           <Text>{`${selectUserName}'s tours`}</Text>
+>>>>>>> master
           <ScrollView style={localStyles.container}>
             {props.map((prop, i) => (
             <TourContainer key={i} tour={prop} />
@@ -86,4 +98,11 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Profile);
+const mapStateToProps = state => {
+  return {
+    selectUserProfilePic: selectUserProfilePic(state),
+    selectUserName: selectUserName(state)
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

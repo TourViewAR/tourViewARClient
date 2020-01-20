@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import axios from 'axios';
+import axios from "axios";
 
 import {
   StyleSheet,
@@ -34,11 +34,20 @@ import { connect } from "react-redux";
 
 import { selectNavigator } from "../redux/render/render.selectors";
 
-import { selectUserName, selectUserPassword } from "../redux/user/user.selectors";
+import {
+  selectUserName,
+  selectUserPassword,
+  selectUserProfilePic
+} from "../redux/user/user.selectors";
 
 import { navigate } from "../redux/render/render.action";
 
-import { setUserName, setUserPassword } from "../redux/user/user.action";
+import {
+  setUserName,
+  setUserPassword,
+  setUserProfilePic,
+  setUserId
+} from "../redux/user/user.action";
 
 import HomePage from "./Homepage";
 
@@ -84,7 +93,9 @@ class Login extends Component {
     this._getExperienceSelector = this._getExperienceSelector.bind(this);
     this._getARNavigator = this._getARNavigator.bind(this);
     this._getReactNativeHome = this._getReactNativeHome.bind(this);
-    this._getExperienceButtonOnPress = this._getExperienceButtonOnPress.bind(this);
+    this._getExperienceButtonOnPress = this._getExperienceButtonOnPress.bind(
+      this
+    );
     this._getProfilePage = this._getProfilePage.bind(this);
     this._getImageUpload = this._getImageUpload.bind(this);
     this._getSearchPage = this._getSearchPage.bind(this);
@@ -117,7 +128,7 @@ class Login extends Component {
   // Presents the user with a choice of an AR or VR experience
   _getExperienceSelector() {
     return (
-      <Container style={{ width: 400, height: 700 }}>
+      <Container style={{ width: "100%", height: "100%" }}>
         <Header>
           <Left />
           <Body>
@@ -142,9 +153,7 @@ class Login extends Component {
             >
               <Item floatingLabel>
                 <Label>Username</Label>
-                <Input
-                  onChangeText={text => this.props.setUserName(text)}
-                />
+                <Input onChangeText={text => this.props.setUserName(text)} />
               </Item>
               <Item floatingLabel>
                 <Label>Password</Label>
@@ -235,16 +244,31 @@ class Login extends Component {
   }
 
   _getUserLogin() {
-    axios.get(`http://tourviewarserver.herokuapp.com/api/login`, {
-      params: {
-        username: this.props.selectUserName,
-        pw: this.props.selectUserPassword
-      }
-    },
-    {headers: {'Content-Type': 'application/json'}})
+    axios
+      .get(
+        `http://tourviewarserver.herokuapp.com/api/login`,
+        {
+          params: {
+            username: this.props.selectUserName,
+            pw: this.props.selectUserPassword
+          }
+        },
+        { headers: { "Content-Type": "application/json" } }
+      )
       // .then(() => console.log(this.props.selectUserName))
-      .then((results) => alert(JSON.stringify(results.data.rows)))
-      .catch((err) => alert('invalid username or password', err))
+      .then(results => {
+        alert(`Welcome ${JSON.stringify(results.data.rows[0].username)} !!`);
+        if (
+          results.data.rows[0].username === this.props.selectUserName &&
+          results.data.rows[0].pw === this.props.selectUserPassword
+        ) {
+          this.props.setUserProfilePic(results.data.rows[0].profile_pic_url);
+          this.props.setUserId(results.data.rows[0].id);
+
+          return this.props.navigate("REACT_NATIVE_HOME");
+        }
+      })
+      .catch(err => alert("invalid username or password"));
   }
 
   // This function returns an anonymous/lambda function to be used
@@ -341,7 +365,9 @@ const mapDispatchToProps = dispatch => {
   return {
     navigate: render => dispatch(navigate(render)),
     setUserName: name => dispatch(setUserName(name)),
-    setUserPassword: password => dispatch(setUserPassword(password))
+    setUserPassword: password => dispatch(setUserPassword(password)),
+    setUserProfilePic: pic => dispatch(setUserProfilePic(pic)),
+    setUserId: id => dispatch(setUserId(id))
   };
 };
 

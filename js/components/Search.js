@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, useState, useCallback } from "react";
 import { ScrollView, View, StyleSheet, Image, TextInput } from "react-native";
+import axios from "axios";
 
 import TourContainer from "./TourContainer";
 import { connect } from "react-redux";
@@ -16,40 +17,71 @@ import {
   Body,
   Right,
   Button,
+  Title
 } from "native-base";
+import Axios from "axios";
 
 const Search = props => {
+  const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  const searchRequest = useCallback(() => {
+    axios
+      .get(
+        "http://tourviewarserver.herokuapp.com/api/search",
+        {
+          search: search
+        },
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      )
+      .then(results => {
+        setSearchResults(results.data.rows);
+      });
+  });
   return (
-    <Container style={{ width: 400, height: 700 }}>
+    <Container style={{ width: "100%", height: "100%" }}>
       <Header searchBar rounded>
         <Left>
-          <Button hasText transparent onPress={() => {props.navigate("REACT_NATIVE_HOME");}}>
+          <Button
+            hasText
+            transparent
+            onPress={() => {
+              props.navigate("REACT_NATIVE_HOME");
+            }}
+          >
             <Text>Back</Text>
           </Button>
         </Left>
+        <Body>
+          <Title>Search Tour</Title>
+        </Body>
+        <Right />
         {/* <TextInput placeholder="Type here to search" /> */}
       </Header>
       <Content>
         <View>
           {/* <Text>SEARCH</Text> */}
-          <TextInput style={{ height: 40, width: 400, borderColor: 'gray', borderWidth: 1, borderRadius: 4 }} placeholder="Touch here to search" />
+          <TextInput
+            style={{
+              height: 40,
+              width: 400,
+              borderColor: "gray",
+              borderWidth: 1,
+              borderRadius: 4
+            }}
+            placeholder="Touch here to search"
+            onChangeText={text => {
+              setSearch(text);
+            }}
+          />
           <ScrollView style={localStyles.container}>
-            {/* {props.map((prop, i) => (
-            <TourContainer key={i} tour={prop} />
-          ))} */}
-            <TourContainer />
-            <TourContainer />
-            <TourContainer />
-            <TourContainer />
-            <TourContainer />
-            <TourContainer />
-            <TourContainer />
-            <TourContainer />
-            <TourContainer />
-            <TourContainer />
-            <TourContainer />
-            <TourContainer />
-            <TourContainer />
+            {searchResults.map((prop, i) => (
+              <TourContainer key={i} tour={prop} />
+            ))}
           </ScrollView>
         </View>
       </Content>
