@@ -1,4 +1,4 @@
-import React, { Component, useCallback } from "react";
+import React, { useCallback } from "react";
 import axios from "axios";
 import {
   Container,
@@ -17,7 +17,7 @@ import {
 } from "native-base";
 import { connect } from "react-redux";
 import {
-  selectUserId,
+  selectUserName,
   selectUserPassword,
   selectUserEmail
 } from "../redux/user/user.selectors";
@@ -28,93 +28,92 @@ import {
   setUserEmail
 } from "../redux/user/user.action";
 
-class Signup extends Component {
-  constructor() {
-    super();
-  }
-  axiosRequest() {
-    axios.post(
-      "http://tourviewarserver.herokuapp.com/api/signup",
-      {
-        username: this.props.selectUserName,
-        pw: this.props.selectUserPassword,
-        email: this.props.selectUserEmail
-      },
-      {
-        headers: {
-          "Content-Type": "application/json"
+const Signup = props => {
+  const axiosRequest = useCallback(() => {
+    axios
+      .post(
+        "http://tourviewarserver.herokuapp.com/api/signup",
+        {
+          username: props.selectUserName,
+          pw: props.selectUserPassword,
+          email: props.selectUserEmail
+        },
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
         }
-      }
-    );
-  }
-  render() {
-    return (
-      <Container style={{ width: 400, height: 700 }}>
-        <Header>
-          <Left>
-            <Button
-              hasText
-              transparent
-              onPress={() => {
-                this.props.navigate("LOGIN_PAGE");
-              }}
-            >
-              <Text>Back</Text>
-            </Button>
-          </Left>
-          <Body>
-            <Title>Sign Up</Title>
-          </Body>
-          <Right />
-        </Header>
-        <Content>
-          <Form>
-            <Item floatingLabel>
-              <Label>Username</Label>
-              <Input
-                onChangeText={text => {
-                  this.props.setUserName(text);
-                }}
-              />
-            </Item>
-            <Item floatingLabel>
-              <Label>Password</Label>
-              <Input
-                secureTextEntry={true}
-                onChangeText={text => {
-                  this.props.setUserPassword(text);
-                }}
-              />
-            </Item>
-            <Item floatingLabel>
-              <Label>Confirm Password</Label>
-              <Input secureTextEntry={true} />
-            </Item>
-            <Item floatingLabel>
-              <Label>E-mail</Label>
-              <Input
-                onChangeText={text => {
-                  this.props.setUserEmail(text);
-                }}
-              />
-            </Item>
-          </Form>
+      )
+      .then(() => alert(`User ${props.selectUserName} has been created!`))
+      .catch(err => alert(err));
+  });
 
+  return (
+    <Container style={{ width: 400, height: 700 }}>
+      <Header>
+        <Left>
           <Button
-            block
-            light
-            style={{ marginTop: 100 }}
+            hasText
+            transparent
             onPress={() => {
-              this.axiosRequest();
+              props.navigate("LOGIN_PAGE");
             }}
           >
-            <Text>Sign Up</Text>
+            <Text>Back</Text>
           </Button>
-        </Content>
-      </Container>
-    );
-  }
-}
+        </Left>
+        <Body>
+          <Title>Sign Up</Title>
+        </Body>
+        <Right />
+      </Header>
+      <Content>
+        <Form>
+          <Item floatingLabel>
+            <Label>Username</Label>
+            <Input
+              onChangeText={text => {
+                props.setUserName(text);
+              }}
+            />
+          </Item>
+          <Item floatingLabel>
+            <Label>Password</Label>
+            <Input
+              secureTextEntry={true}
+              onChangeText={text => {
+                props.setUserPassword(text);
+              }}
+            />
+          </Item>
+          <Item floatingLabel>
+            <Label>Confirm Password</Label>
+            <Input secureTextEntry={true} />
+          </Item>
+          <Item floatingLabel>
+            <Label>E-mail</Label>
+            <Input
+              onChangeText={text => {
+                props.setUserEmail(text);
+              }}
+            />
+          </Item>
+        </Form>
+
+        <Button
+          block
+          light
+          style={{ marginTop: 100 }}
+          onPress={() => {
+            axiosRequest();
+          }}
+        >
+          <Text>Sign Up</Text>
+        </Button>
+      </Content>
+    </Container>
+  );
+};
 
 const mapDispatchToProps = dispatch => {
   return {
