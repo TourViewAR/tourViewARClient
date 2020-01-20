@@ -3,8 +3,8 @@ import { ScrollView, View, StyleSheet, Image } from "react-native";
 import TourContainer from "./TourContainer";
 import { connect } from "react-redux";
 import { navigate } from "../redux/render/render.action";
-import { selectUserName } from "../redux/user/user.selectors"
-import {} from "../redux/tour/tour.selectors"
+import { selectUserName, selectUserProfilePic, selectUserCreatedTours } from "../redux/user/user.selectors";
+import {} from "../redux/tour/tour.selectors";
 import {
   Container,
   Header,
@@ -17,77 +17,110 @@ import {
   Title
 } from "native-base";
 
-import {
-  selectUserName,
-  selectUserProfilePic
-} from "../redux/user/user.selectors";
-
-const Profile = props => {
-  return (
-    <Container style={{ width: "100%", height: "100%" }}>
-      <Header>
-        <Left>
-          <Button
-            hasText
-            transparent
-            onPress={() => {
-              props.navigate("REACT_NATIVE_HOME");
-            }}
-          >
-            <Text>Back</Text>
-          </Button>
-        </Left>
-        <Body>
-          <Title>Profile</Title>
-        </Body>
-        <Right />
-      </Header>
-      <Content>
-        <View>
-          <Image
-            style={localStyles.profileImg}
-            source={{
-              uri: `https://breakdownservices.s3.amazonaws.com/media/photos/20181/341794/9082DC9E-111F-4F77-9736BC2CCAFB0CA5.jpg`
-            }}
-          />
-<<<<<<< HEAD
-          <Text>{props.selectUserName}</Text>
-=======
-          <Text>{`${selectUserName}'s tours`}</Text>
->>>>>>> master
-          <ScrollView style={localStyles.container}>
-            {props.map((prop, i) => (
-            <TourContainer key={i} tour={prop} />
-          ))}
-            {/* <TourContainer />
-            <TourContainer />
-            <TourContainer />
-            <TourContainer />
-            <TourContainer />
-            <TourContainer />
-            <TourContainer />
-            <TourContainer />
-            <TourContainer />
-            <TourContainer />
-            <TourContainer />
-            <TourContainer />
-            <TourContainer /> */}
-          </ScrollView>
-        </View>
-      </Content>
-    </Container>
-  );
+class Profile extends Component {
+  constructor() {
+    super()
+    this.state = {
+      view: "MAIN"
+    }
+  }
+  render() {
+    if (this.state.view === "MAIN") {
+      return (
+        <Container style={localStyles.mainProfileContainer} >
+          <Header>
+            <Left>
+            <Button hasText transparent onPress={() => { this.props.navigate("REACT_NATIVE_HOME"); }}>
+                <Text>Back</Text>
+              </Button>
+            </Left>
+            <Body>
+              <Title >Profile</Title>
+            </Body>
+            <Right />
+          </Header>
+          <Content>
+            <View>
+            <Image
+                style={localStyles.profileImgLarge}
+                source={{
+                  uri: `https://breakdownservices.s3.amazonaws.com/media/photos/20181/341794/9082DC9E-111F-4F77-9736BC2CCAFB0CA5.jpg`
+                }}
+              />
+              <Text>{this.props.selectUserName}</Text>
+              <Button hasText transparent onPress={() => { this.setState({view: "USER_TOURS"})}}>
+                <Text>My Tours</Text>
+              </Button>
+              <Button hasText transparent onPress={() => {}}>
+                <Text>Create Tour</Text>
+              </Button>
+            </View>
+          </Content>
+        </Container>
+      )
+    } else if (this.state.view === "USER_TOURS") {
+      return (
+        <Container style={localStyles.mainProfileContainer}>
+          <Header>
+            <Left>
+              <Button hasText transparent onPress={() => { this.props.navigate("REACT_NATIVE_HOME"); }}>
+                <Text>Back</Text>
+              </Button>
+            </Left>
+            <Body>
+              <Title>Profile</Title>
+            </Body>
+            <Right />
+          </Header>
+          <Content>
+            <View>
+              <Image
+                style={localStyles.profileImgSmall}
+                source={{
+                  uri: `https://breakdownservices.s3.amazonaws.com/media/photos/20181/341794/9082DC9E-111F-4F77-9736BC2CCAFB0CA5.jpg`
+                }}
+              />
+              <Text>{`${this.props.selectUserName}'s Tours`}</Text>
+              <ScrollView style={localStyles.scrollViewContainer}>
+                {this.props.selectUserCreatedTours.map((prop, i) => (
+                <TourContainer key={i} tour={prop} />
+              ))}
+              </ScrollView>
+            </View>
+          </Content>
+        </Container>
+      );
+    }
+  }
 };
 
 const localStyles = StyleSheet.create({
-  container: {
+  mainProfileContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    alignContent: 'center',
+    width: "100%",
+    height: "100%"
+  },
+  myToursContainer: {
+    flex: 1,
+    width: "100%",
+    height: "100%"
+  },
+  scrollViewContainer: {
     flex: 1,
     marginTop: 15
   },
-  profileImg: {
+  profileImgSmall: {
     marginTop: 30,
     width: 60,
     height: 60,
+    borderRadius: 10
+  },
+  profileImgLarge: {
+    marginTop: 30,
+    width: 100,
+    height: 100,
     borderRadius: 10
   }
 });
@@ -101,7 +134,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     selectUserProfilePic: selectUserProfilePic(state),
-    selectUserName: selectUserName(state)
+    selectUserName: selectUserName(state),
+    selectUserCreatedTours: selectUserCreatedTours(state)
   };
 };
 

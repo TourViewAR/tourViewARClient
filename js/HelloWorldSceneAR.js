@@ -44,7 +44,7 @@ export default class HelloWorldSceneAR extends Component {
       <ViroARScene onTrackingUpdated={this._onInitialized}>
         <Viro360Image
           source={{
-            uri: "https://i.pinimg.com/originals/11/99/42/119942206240512b97077429723f1885.jpg"
+            uri: "https://i.pinimg.com/originals/15/19/65/1519654484f5159bd5d0cd87f0a2c42f.jpg"
           }}
         />
         <ViroAmbientLight color={"#aaaaaa"} />
