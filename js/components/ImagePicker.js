@@ -5,9 +5,13 @@ import { StyleSheet, View } from "react-native";
 import ImagePicker from "react-native-image-picker";
 import { connect } from "react-redux";
 import { navigate } from "../redux/render/render.action";
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 import { selectTourName } from '../redux/tour/tour.selectors';
 =======
+=======
+import { selectTourName } from "../redux/tour/tour.selectors";
+>>>>>>> Stashed changes
 import axios from "axios";
 >>>>>>> master
 import {
@@ -28,7 +32,11 @@ class ImageUpload extends React.Component {
       filePath: {}
     };
   }
+<<<<<<< Updated upstream
 ​
+=======
+
+>>>>>>> Stashed changes
   chooseFile = () => {
     // var options = {
     //   title: 'Select Image',
@@ -45,29 +53,33 @@ class ImageUpload extends React.Component {
 ​
       const source = { uri: response.uri };
       // alert(JSON.stringify(source));
-      axios.get(`http://tourviewarserver.herokuapp.com/api/getpresignedurl/panoimages`)
-      .then(results => {
-        const xhr = new XMLHttpRequest();
-        xhr.open(
-          "PUT", results.data.presignedUrl
-        );
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === 4) {
-            console.log(xhr.status);
-            console.log(xhr);
-            if (xhr.status === 200) {
-              alert("Image successfully uploaded to S3");
-              axios.post(`http://tourviewarserver.herokuapp.com/api/newtour`, {
-                id: results.data.id,
-                img_url: results.data.publicUrl,
-                tour_name: this.props.selectTourName,
-                id_user: this.props.selectUserId
-              })
-              .then(results => this.props.navigate('CREATE_AR_SCENE'))
-              .catch(err => alert(err));
-            } else {
-              alert("Error while sending the image to S3");
+      axios
+        .get(
+          `http://tourviewarserver.herokuapp.com/api/getpresignedurl/panoimages`
+        )
+        .then(results => {
+          const xhr = new XMLHttpRequest();
+          xhr.open("PUT", results.data.presignedUrl);
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+              console.log(xhr.status);
+              console.log(xhr);
+              if (xhr.status === 200) {
+                alert("Image successfully uploaded to S3");
+                axios
+                  .post(`http://tourviewarserver.herokuapp.com/api/newtour`, {
+                    id: results.data.id,
+                    img_url: results.data.publicUrl,
+                    tour_name: this.props.selectTourName,
+                    id_user: this.props.selectUserId
+                  })
+                  .then(results => this.props.navigate("CREATE_AR_SCENE"))
+                  .catch(err => alert(err));
+              } else {
+                alert("Error while sending the image to S3");
+              }
             }
+<<<<<<< Updated upstream
           }
         };
         xhr.setRequestHeader("Content-Type", "image/jpeg");
@@ -75,6 +87,17 @@ class ImageUpload extends React.Component {
       })
       .catch(err => alert(JSON.stringify(err)));
 ​
+=======
+          };
+          xhr.setRequestHeader("Content-Type", "image/jpeg");
+          xhr.send({
+            uri: source.uri,
+            type: "image/jpeg",
+            name: "pickertest.jpg"
+          });
+        })
+        .catch(err => alert(JSON.stringify(err)));
+>>>>>>> Stashed changes
       // console.log("Response = ", response);
       // const xhr = new XMLHttpRequest();
       // xhr.open(
@@ -147,5 +170,10 @@ const mapDispatchToProps = dispatch => {
     navigate: render => dispatch(navigate(render))
   };
 };
+<<<<<<< Updated upstream
 ​
 export default connect(mapStateToProps, mapDispatchToProps)(ImageUpload);
+=======
+
+export default connect(mapStateToProps, mapDispatchToProps)(ImageUpload);
+>>>>>>> Stashed changes

@@ -1,11 +1,23 @@
+<<<<<<< Updated upstream
 import React, { Component, useState } from "react";
+=======
+import React, { useState, useCallback } from "react";
+import axios from "axios";
+>>>>>>> Stashed changes
 import { ScrollView, View, StyleSheet, Image } from "react-native";
 ​
 import TourContainer from "./TourContainer";
 import { connect } from "react-redux";
 import { navigate } from "../redux/render/render.action";
+<<<<<<< Updated upstream
 import { setTourName } from '../redux/tour/tour.action';
 ​
+=======
+import { setTourName } from "../redux/tour/tour.action";
+import { selectTourName } from "../redux/tour/tour.selectors";
+import { selectUserId } from "../redux/user/user.selectors";
+
+>>>>>>> Stashed changes
 import {
   Container,
   Header,
@@ -18,7 +30,17 @@ import {
 } from "native-base";
 ​
 const Create = props => {
+<<<<<<< Updated upstream
     [tourname, settourname] = useState('');
+=======
+  let [tourname, tournamestate] = useState("");
+
+  // const moveToOptions = useCallback(() => {
+  //   // alert(`User ${props.selectTourName} has been created!`);
+  //   props.navigate("CAMERA_PAGE");
+  // });
+
+>>>>>>> Stashed changes
   return (
     <Container style={{ width: 400, height: 700 }}>
       <Header>
@@ -34,23 +56,36 @@ const Create = props => {
           </Button>
         </Left>
         <Body />
-        <Right />
+        <Right>
+          <Text>{`${props.selectTourName}`} </Text>
+        </Right>
       </Header>
       <Content>
         <View style={{ marginTop: 50 }}>
         <Item floatingLabel>
             <Label>ENTER TOUR NAME</Label>
             <Input
+<<<<<<< Updated upstream
             onChangeText={text => {
                 settourname(text);
             }}
+=======
+              onChangeText={text => {
+                props.setTourName(text);
+              }}
+>>>>>>> Stashed changes
             />
         </Item>
           <Button
             block
+<<<<<<< Updated upstream
             style={styles.button}
             onPress={() => {
               props.setTourName(tourname);
+=======
+            onPress={() => {
+              props.navigate("CAMERA_PAGE");
+>>>>>>> Stashed changes
             }}
             full
           >
@@ -81,5 +116,14 @@ const mapDispatchToProps = dispatch => {
     setTourName: (name) => dispatch(setTourName(name))
   };
 };
+<<<<<<< Updated upstream
 ​
 export default connect(mapStateToProps, mapDispatchToProps)(Create);
+=======
+const mapStateToProps = state => {
+  return {
+    selectTourName: selectTourName(state)
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Create);
+>>>>>>> Stashed changes

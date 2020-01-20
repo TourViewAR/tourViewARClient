@@ -5,6 +5,10 @@ import { connect } from "react-redux";
 import { navigate } from "../redux/render/render.action";
 import { selectUserName, selectUserProfilePic, selectUserCreatedTours } from "../redux/user/user.selectors";
 import {} from "../redux/tour/tour.selectors";
+<<<<<<< Updated upstream
+=======
+import axios from "axios";
+>>>>>>> Stashed changes
 import {
   Container,
   Header,
@@ -30,7 +34,17 @@ class Profile extends Component {
         <Container style={localStyles.mainProfileContainer} >
           <Header>
             <Left>
+<<<<<<< Updated upstream
             <Button hasText transparent onPress={() => { this.props.navigate("REACT_NATIVE_HOME"); }}>
+=======
+              <Button
+                hasText
+                transparent
+                onPress={() => {
+                  this.props.navigate("REACT_NATIVE_HOME");
+                }}
+              >
+>>>>>>> Stashed changes
                 <Text>Back</Text>
               </Button>
             </Left>
@@ -48,7 +62,11 @@ class Profile extends Component {
                 }}
               />
               <Text>{this.props.selectUserName}</Text>
+<<<<<<< Updated upstream
               <Button hasText transparent onPress={() => { this.setState({view: "USER_TOURS"})}}>
+=======
+              <Button hasText transparent onPress={this.getUserTours}>
+>>>>>>> Stashed changes
                 <Text>My Tours</Text>
               </Button>
               <Button hasText transparent onPress={() => {}}>
@@ -92,7 +110,29 @@ class Profile extends Component {
       );
     }
   }
+<<<<<<< Updated upstream
 };
+=======
+
+  getUserTours() {
+    axios
+      .get(
+        `http://tourviewarserver.herokuapp.com/api/tours/${this.props.selectUserId}`,
+        { headers: { "Content-Type": "application/json" } }
+      )
+      .then(results => {
+        // alert(results.data)
+        this.setState({
+          userTours: results.data.rows,
+          view: "USER_TOURS"
+        });
+      })
+      .catch(err => {
+        alert(err);
+      });
+  }
+}
+>>>>>>> Stashed changes
 
 const localStyles = StyleSheet.create({
   mainProfileContainer: {
