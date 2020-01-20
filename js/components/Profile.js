@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { ScrollView, View, StyleSheet, Image } from "react-native";
 
 import TourContainer from "./TourContainer";
@@ -23,7 +23,7 @@ import {
 
 const Profile = props => {
   return (
-    <Container style={{ width: 400, height: 700 }}>
+    <Container style={{ width: "100%", height: "100%" }}>
       <Header>
         <Left>
           <Button

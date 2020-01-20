@@ -129,7 +129,7 @@ class Login extends Component {
   // Presents the user with a choice of an AR or VR experience
   _getExperienceSelector() {
     return (
-      <Container style={{ width: 400, height: 700 }}>
+      <Container style={{ width: "100%", height: "100%" }}>
         <Header>
           <Left />
           <Body>

@@ -41,7 +41,7 @@ class UseCamera extends React.Component {
   };
   render() {
     return (
-      <Container style={{ width: 400, height: 700 }}>
+      <Container style={{ width: "100%", height: "100%" }}>
         <Header>
           <Left>
             <Button
