@@ -5,6 +5,7 @@ import { StyleSheet, View } from "react-native";
 import ImagePicker from "react-native-image-picker";
 import { connect } from "react-redux";
 import { navigate } from "../redux/render/render.action";
+import axios from "axios";
 import {
   Container,
   Header,
