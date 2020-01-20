@@ -28,7 +28,16 @@ class Profile extends Component {
     super();
     this.state = {
       view: "MAIN",
-      userTours: []
+      userTours: [
+        {
+          pic_url: 'https://i.pinimg.com/originals/15/19/65/1519654484f5159bd5d0cd87f0a2c42f.jpg',
+          tour_name: 'hunters spicy tour'
+        },
+        {
+          pic_url: 'https://i.ytimg.com/vi/OjaAxb7mqDE/maxresdefault.jpg',
+          tour_name: 'the other spicy tour'
+        }
+      ]
     };
     this.getUserTours = this.getUserTours.bind(this);
   }
@@ -114,7 +123,7 @@ class Profile extends Component {
               />
               <Text>{`${this.props.selectUserName}'s Tours`}</Text>
               <ScrollView style={localStyles.scrollViewContainer}>
-                {this.props.userTours.map((tour, i) => (
+                {this.state.userTours.map((tour, i) => (
                   <TourContainer key={i} tour={tour} />
                 ))}
               </ScrollView>
@@ -131,7 +140,6 @@ class Profile extends Component {
       { headers: { "Content-Type": "application/json" } }
     )
     .then((results) => {
-      // alert(results.data)
       this.setState({
         userTours: results.data.rows,
         view: "USER_TOURS"
