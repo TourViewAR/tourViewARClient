@@ -6,7 +6,10 @@ import { connect } from "react-redux";
 
 import { selectNavigator } from "../redux/render/render.selectors";
 
-import { selectUserName, selectUserProfilePic } from "../redux/user/user.selectors";
+import {
+  selectUserName,
+  selectUserProfilePic
+} from "../redux/user/user.selectors";
 
 import { navigate } from "../redux/render/render.action";
 
@@ -35,7 +38,7 @@ import {
 
 const HomePage = props => {
   return (
-    <Container style={{ width: 400, height: 700 }}>
+    <Container style={{ width: "100%", height: "100%" }}>
       <Header>
         <Left />
         <Body>
@@ -54,15 +57,17 @@ const HomePage = props => {
           <Body style={{ alignItems: "center" }}>
             <View>
               <Thumbnail large source={require("../res/aaron.jpg")}></Thumbnail>
-              <Text>Senior Aaron</Text>
+              <Text>{props.selectUserName}</Text>
             </View>
           </Body>
         </CardItem>
         <View style={{ marginTop: 50 }}>
           <Button
-            block light style={styles.button}
+            block
+            light
+            style={styles.button}
             onPress={() => {
-              props.navigate("SEARCH_PAGE")
+              props.navigate("SEARCH_PAGE");
             }}
             full
           >
@@ -134,7 +139,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    selectNavigator: selectNavigator(state)
+    selectNavigator: selectNavigator(state),
+    selectUserProfilePic: selectUserProfilePic(state)
   };
 };
 

@@ -12,6 +12,7 @@ import {
   Left,
   Body,
   Right,
+  Title,
   Button
 } from "native-base";
 class UseCamera extends React.Component {
@@ -40,7 +41,7 @@ class UseCamera extends React.Component {
   };
   render() {
     return (
-      <Container style={{ width: 400, height: 700 }}>
+      <Container style={{ width: "100%", height: "100%" }}>
         <Header>
           <Left>
             <Button
@@ -53,12 +54,14 @@ class UseCamera extends React.Component {
               <Text>Back</Text>
             </Button>
           </Left>
-          <Body />
+          <Body>
+            <Title>Take Photo</Title>
+          </Body>
           <Right />
         </Header>
         <View style={styles.container}>
           <Text style={{ color: "#3FA4F0" }} onPress={this.takePhoto}>
-            Take A Photo
+            Take Photo
           </Text>
         </View>
       </Container>
