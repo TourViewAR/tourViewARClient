@@ -108,7 +108,7 @@ class Signup extends Component {
               this.axiosRequest();
             }}
           >
-            <Text>{`${this.props.selectUserEmail}`}</Text>
+            <Text>Sign Up</Text>
           </Button>
         </Content>
       </Container>
