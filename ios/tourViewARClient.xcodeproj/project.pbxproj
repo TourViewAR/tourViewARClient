@@ -751,6 +751,8 @@
 				4CB6D23442E9B75C59108192 /* Copy ngrok endpoint */,
 				08D6507DDAF155E8C0525C54 /* Execute Ngrok */,
 				AE6A7DE3539D766AD5C54D27 /* Copy ngrok endpoint */,
+				CF1ADBE50562709D55CD589F /* Execute Ngrok */,
+				CE110A58A61C85F571940EC7 /* Copy ngrok endpoint */,
 			);
 			buildRules = (
 			);
@@ -1425,6 +1427,42 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tourViewARClient/Pods-tourViewARClient-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		CE110A58A61C85F571940EC7 /* Copy ngrok endpoint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy ngrok endpoint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "DEST=$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\nendpointfile=\"ngrokendpoint.txt\"\nif [[ -e \"$SRCROOT/$endpointfile\" ]]; then\necho \"Ngrok endpoint file found, copying over...\"\ncp \"$SRCROOT/$endpointfile\" \"$DEST/$endpointfile\"\nbreak;\nfi";
+		};
+		CF1ADBE50562709D55CD589F /* Execute Ngrok */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Execute Ngrok";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/ngrok_launch.sh";
 		};
 		DDCE4704504882127AE64F4E /* Copy ngrok endpoint */ = {
 			isa = PBXShellScriptBuildPhase;

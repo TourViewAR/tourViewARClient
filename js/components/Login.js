@@ -63,6 +63,7 @@ import UseCamera from "./Camera";
 
 import Create from "./Create";
 import CreateOptions from "./CreateOptions";
+import ARScene from './ARScene';
 
 var sharedProps = {
   apiKey: "API_KEY_HERE"
@@ -85,11 +86,14 @@ var CAMERA_PAGE = "CAMERA_PAGE";
 var SEARCH_PAGE = "SEARCH_PAGE";
 var CREATE_TOUR = "CREATE_TOUR";
 var CREATE_OPTIONS = "CREATE_OPTIONS";
-
+var CREATE_AR_PAGE = "CREATE_AR_PAGE";
+var VIEW_AR_PAGE = "VIEW_AR_PAGE";
+var EDIT_AR_PAGE = "EDIT_AR_PAGE";
+var CAMERA_PAGE_OBJECT = "CAMERA_PAGE_OBJECT";
+var IMAGE_PICKER_PAGE_OBJECT = "IMAGE_PICKER_PAGE_OBJECT";
 // This determines which type of experience to launch in, or UNSET, if the user should
 // be presented with a choice of AR or VR. By default, we offer the user a choice.
 var defaultNavigatorType = UNSET;
-
 class Login extends Component {
   constructor() {
     super();
@@ -100,9 +104,7 @@ class Login extends Component {
     this._getExperienceSelector = this._getExperienceSelector.bind(this);
     this._getARNavigator = this._getARNavigator.bind(this);
     this._getReactNativeHome = this._getReactNativeHome.bind(this);
-    this._getExperienceButtonOnPress = this._getExperienceButtonOnPress.bind(
-      this
-    );
+    this._getExperienceButtonOnPress = this._getExperienceButtonOnPress.bind(this);
     this._getProfilePage = this._getProfilePage.bind(this);
     this._getImageUpload = this._getImageUpload.bind(this);
     this._getSearchPage = this._getSearchPage.bind(this);
@@ -126,20 +128,28 @@ class Login extends Component {
     } else if (this.props.selectNavigator === PROFILE) {
       return this._getProfilePage();
     } else if (this.props.selectNavigator === IMAGE_UPLOAD) {
-      return this._getImageUpload();
+      return this._getImageUpload(false);
     } else if (this.props.selectNavigator === CAMERA_PAGE) {
-      return this._getCameraPage();
+      return this._getCameraPage(false);
     } else if (this.props.selectNavigator === SEARCH_PAGE) {
       return this._getSearchPage();
     } else if (this.props.selectNavigator === CREATE_TOUR) {
       return this._getCreatePage();
     } else if (this.props.selectNavigator === CREATE_OPTIONS) {
       return this._getCreateOptions();
+    } else if (this.props.selectNavigator === VIEW_AR_PAGE) {
+      return this._getViewARPage();
+    } else if (this.props.selectNavigator === CREATE_AR_PAGE) {
+      return this.props._getCreateARPage();
+    } else if (this.props.selectNavigator === EDIT_AR_PAGE) {
+      return this._getEditARPage();
+    } else if (this.props.selectNavigator === CAMERA_PAGE_OBJECT) {
+      return this._getCameraPage(true);
+    } else if (this.props.selectNavigator === IMAGE_PICKER_PAGE_OBJECT) {
+      return this._getImageUpload(true);
     }
   }
-
   _loginHandler() {}
-
   // Presents the user with a choice of an AR or VR experience
   _getExperienceSelector() {
     return (
@@ -223,7 +233,6 @@ class Login extends Component {
       </Container>
     );
   }
-
   // Returns the ViroARSceneNavigator which will start the AR experience
   _getARNavigator() {
     return (
@@ -233,7 +242,6 @@ class Login extends Component {
       />
     );
   }
-
   _getARNavigatorTC() {
     return (
       <ViroARSceneNavigator
@@ -242,39 +250,63 @@ class Login extends Component {
       />
     );
   }
-
   _getReactNativeHome() {
     return <HomePage />;
   }
-
   _getReactNativeSignup() {
     return <Signup />;
   }
-
   _getProfilePage() {
     return <Profile />;
   }
-
-  _getImageUpload() {
-    return <ImageUpload />;
+  _getImageUpload(forobject) {
+    return <ImageUpload forobject={forobject}/>;
   }
-
-  _getCameraPage() {
-    return <UseCamera />;
+  _getCameraPage(forobject) {
+    return <UseCamera forobject={forobject}/>;
   }
-
   _getSearchPage() {
     return <Search />;
   }
-
   _getCreatePage() {
     return <Create />;
   }
-
   _getCreateOptions() {
     return <CreateOptions />;
   }
-
+  _getViewARPage() {
+    let initialScene = (
+      <ARScene
+        editable={true}
+        isnew={false}
+        publicUrl={this.props.selectTourPanos[0].img_url}
+        scenes={this.props.selectTourPanos}
+      />
+    );
+    return <ViroARSceneNavigator initialScene={{ scene: initialScene }} />;
+  }
+  _getCreateARPage() {
+    let initialScene = (
+      <ARScene
+        editable={true}
+        isnew={false}
+        publicUrl={this.props.selectTourPanos[0].img_url}
+        scenes={this.props.selectTourPanos}
+      />
+    );
+    return <ViroARSceneNavigator initialScene={{ scene: initialScene }} />;
+  }
+  _getEditARPage() {
+    let initialScene = (
+      <ARScene
+        editable={true}
+        isnew={false}
+        publicUrl={this.props.selectTourPanos[0].img_url}
+        scenes={this.props.selectTourPanos}
+      />
+    );
+    return <ViroARSceneNavigator initialScene={{ scene: initialScene }} />;
+  }
   _getUserLogin() {
     axios
       .get(
@@ -302,7 +334,6 @@ class Login extends Component {
       })
       .catch(err => alert("invalid username or password"));
   }
-
   // This function returns an anonymous/lambda function to be used
   // by the experience selector buttons
   _getExperienceButtonOnPress(navigatorType) {
@@ -312,7 +343,6 @@ class Login extends Component {
       });
     };
   }
-
   // This function "exits" Viro by setting the navigatorType to UNSET.
   _exitViro() {
     this.setState({
@@ -320,7 +350,6 @@ class Login extends Component {
     });
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     display: "flex",
@@ -392,7 +421,6 @@ const styles = StyleSheet.create({
     borderColor: "#fff"
   }
 });
-
 const mapDispatchToProps = dispatch => {
   return {
     navigate: render => dispatch(navigate(render)),
@@ -402,7 +430,6 @@ const mapDispatchToProps = dispatch => {
     setUserId: id => dispatch(setUserId(id))
   };
 };
-
 const mapStateToProps = state => {
   return {
     selectNavigator: selectNavigator(state),
@@ -410,5 +437,4 @@ const mapStateToProps = state => {
     selectUserPassword: selectUserPassword(state)
   };
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

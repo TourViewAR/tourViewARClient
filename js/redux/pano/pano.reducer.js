@@ -1,6 +1,7 @@
 const INITIAL_STATE = {
   id: '',
-  img_url: ''
+  img_url: '',
+  panos: []
 }
 
 const PanoReducer = (state=INITIAL_STATE, action) => {
@@ -15,9 +16,15 @@ const PanoReducer = (state=INITIAL_STATE, action) => {
         ...state,
         img_url: action.payload
       });
+    case 'SET_TOUR_PANOS':
+      return ({
+        ...state,
+        panos: action.payload
+      })
     default:
       return state;
   }
 }
+
 
 export default PanoReducer;

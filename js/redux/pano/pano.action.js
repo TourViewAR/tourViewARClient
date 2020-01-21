@@ -11,3 +11,10 @@ export const setPanoImgUrl = url => {
     payload: url
   });
 };
+
+export const setTourPanos = panos => {
+  return ({
+    type: 'SET_TOUR_PANOS',
+    paylod: panos
+  });
+}
