@@ -18,7 +18,7 @@ import {
 import Axios from "axios";
 const Search = props => {
   const [search, setSearch] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState([[]]);
   const searchRequest = useCallback(() => {
     axios
       .get(
@@ -35,8 +35,12 @@ const Search = props => {
         }
       )
       .then(results => {
-        setSearchResults(JSON.stringify(results.data));
-        // alert(JSON.stringify(results.data));
+        if (results.data[0][0] === undefined) {
+          alert("No Search has been found!");
+          setSearchResults([[]]);
+        } else {
+          setSearchResults(results.data);
+        }
       })
       .catch(err => {
         alert(err);
@@ -59,10 +63,6 @@ const Search = props => {
         <Body>
           <Title>Search Tour</Title>
         </Body>
-        <Right>
-          <Text>{`${search}`}</Text>
-        </Right>
-        {/* <TextInput placeholder="Type here to search" /> */}
       </Header>
       <Content>
         <View
@@ -101,9 +101,6 @@ const Search = props => {
             <TourContainer key={i} tour={tour} />
           ))}
         </ScrollView>
-        <View>
-          <Text>{`${searchResults}`}</Text>
-        </View>
       </Content>
     </Container>
   );
