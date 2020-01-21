@@ -124,8 +124,4 @@ const mapDispatchToProps = dispatch => {
     setTourName: name => dispatch(setTourName(name))
   };
 };
-<<<<<<< HEAD
 export default connect(mapStateToProps, mapDispatchToProps)(UseCamera);
-=======
-export default connect(mapStateToProps, mapDispatchToProps)(UseCamera);
->>>>>>> master
