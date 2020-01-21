@@ -28,6 +28,7 @@ class Profile extends Component {
     super();
     this.state = {
       view: "MAIN",
+<<<<<<< HEAD
       userTours: [
         {
           pic_url:
@@ -39,6 +40,9 @@ class Profile extends Component {
           tour_name: "the other spicy tour"
         }
       ]
+=======
+      userTours: []
+>>>>>>> master
     };
     this.getUserTours = this.getUserTours.bind(this);
   }

@@ -17,7 +17,6 @@ import {
   Right,
   Button
 } from "native-base";
-
 class ImageUpload extends React.Component {
   constructor(props) {
     super(props);
@@ -25,7 +24,6 @@ class ImageUpload extends React.Component {
       filePath: {}
     };
   }
-
   chooseFile = () => {
     // var options = {
     //   title: 'Select Image',
@@ -96,7 +94,6 @@ class ImageUpload extends React.Component {
       // xhr.setRequestHeader("Content-Type", "image/jpeg");
       // xhr.send({ uri: response.uri, type: "image/jpeg", name: "myimage.jpg" });
     });
-
     // You can also display the image using data:
     // let source = { uri: 'data:image/jpeg;base64,' + response.data };
   };
@@ -135,17 +132,14 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
-
 const mapStateToProps = state => {
   return {
     selectTourName: selectTourName(state)
   };
 };
-
 const mapDispatchToProps = dispatch => {
   return {
     navigate: render => dispatch(navigate(render))
   };
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(ImageUpload);
