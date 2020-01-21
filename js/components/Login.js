@@ -62,6 +62,7 @@ import ImageUpload from "./ImagePicker";
 import UseCamera from "./Camera";
 
 import Create from "./Create";
+import CreateOptions from "./CreateOptions";
 
 var sharedProps = {
   apiKey: "API_KEY_HERE"
@@ -83,6 +84,7 @@ var LOGIN_PAGE = "LOGIN_PAGE";
 var CAMERA_PAGE = "CAMERA_PAGE";
 var SEARCH_PAGE = "SEARCH_PAGE";
 var CREATE_TOUR = "CREATE_TOUR";
+var CREATE_OPTIONS = "CREATE_OPTIONS";
 
 // This determines which type of experience to launch in, or UNSET, if the user should
 // be presented with a choice of AR or VR. By default, we offer the user a choice.
@@ -108,6 +110,7 @@ class Login extends Component {
     this._getUserLogin = this._getUserLogin.bind(this);
     this._loginHandler = this._loginHandler.bind(this);
     this._getARNavigatorTC = this._getARNavigatorTC.bind(this);
+    this._getCreateOptions = this._getCreateOptions.bind(this);
   }
   render() {
     if (this.props.selectNavigator === LOGIN_PAGE) {
@@ -130,6 +133,8 @@ class Login extends Component {
       return this._getSearchPage();
     } else if (this.props.selectNavigator === CREATE_TOUR) {
       return this._getCreatePage();
+    } else if (this.props.selectNavigator === CREATE_OPTIONS) {
+      return this._getCreateOptions();
     }
   }
 
@@ -264,6 +269,10 @@ class Login extends Component {
 
   _getCreatePage() {
     return <Create />;
+  }
+
+  _getCreateOptions() {
+    return <CreateOptions />;
   }
 
   _getUserLogin() {

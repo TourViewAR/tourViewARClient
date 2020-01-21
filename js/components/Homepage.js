@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Image, StyleSheet } from "react-native";
+import { Image, StyleSheet, Alert } from "react-native";
 
 import { connect } from "react-redux";
 
@@ -32,10 +32,6 @@ import {
   Icon
 } from "native-base";
 import { selectTourName } from "../redux/tour/tour.selectors";
-
-// import Icon from "react-native-vector-icons/MaterialIcons";
-
-// Icon.loadFont();
 
 const HomePage = props => {
   return (
@@ -72,7 +68,18 @@ const HomePage = props => {
             }}
             full
           >
-            <Text>Search</Text>
+            <Text>Search Tour</Text>
+          </Button>
+          <Button
+            block
+            light
+            style={styles.button}
+            onPress={() => {
+              props.navigate("CREATE_TOUR");
+            }}
+            full
+          >
+            <Text>Create A New Tour</Text>
           </Button>
           <Button
             block

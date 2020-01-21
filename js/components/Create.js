@@ -53,7 +53,7 @@ const Create = props => {
           <Button
             block
             onPress={() => {
-              props.navigate("CAMERA_PAGE");
+              props.navigate("CREATE_OPTIONS");
             }}
             full
           >

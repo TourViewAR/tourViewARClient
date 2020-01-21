@@ -55,7 +55,7 @@ const UseCamera = props => {
                       img_url: results.data.publicUrl,
                       tour_name: props.selectTourName,
                       // id_user: 1
-                      id_user: this.props.selectUserId
+                      id_user: props.selectUserId
                     })
                     .then(() => {
                       axios
