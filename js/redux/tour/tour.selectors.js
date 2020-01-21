@@ -21,3 +21,8 @@ export const selectTourIdUser = createSelector(
   [selectTour],
   tour => tour.id_user
 );
+
+export const selectTourPicUrl = createSelector(
+  [selectTour],
+  tour => tour.pic_url
+);

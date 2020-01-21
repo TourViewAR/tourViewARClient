@@ -25,3 +25,10 @@ export const setTourIdUser = id => {
     payload: id
   };
 };
+
+export const setTourPicUrl = url => {
+  return {
+    type: "SET_TOUR_PIC_URL",
+    payload: url
+  };
+};
