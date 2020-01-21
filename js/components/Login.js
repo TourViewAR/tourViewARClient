@@ -69,10 +69,12 @@ var sharedProps = {
 
 // Sets the default scene you want for AR
 var InitialARScene = require("../HelloWorldSceneAR.js");
+var tcARscene = require("../TourContainerAR.js");
 
 var UNSET = "UNSET";
 var VR_NAVIGATOR_TYPE = "VR";
 var AR_NAVIGATOR_TYPE = "AR";
+var AR_NAVIGATOR_TYPE_TC = "ARtc";
 var REACT_NATIVE_SIGNUP = "SIGNUP";
 var REACT_NATIVE_HOME = "REACT_NATIVE_HOME";
 var PROFILE = "PROFILE";
@@ -105,12 +107,15 @@ class Login extends Component {
     this._exitViro = this._exitViro.bind(this);
     this._getUserLogin = this._getUserLogin.bind(this);
     this._loginHandler = this._loginHandler.bind(this);
+    this._getARNavigatorTC = this._getARNavigatorTC.bind(this);
   }
   render() {
     if (this.props.selectNavigator === LOGIN_PAGE) {
       return this._getExperienceSelector();
     } else if (this.props.selectNavigator === AR_NAVIGATOR_TYPE) {
       return this._getARNavigator();
+    } else if (this.props.selectNavigator === AR_NAVIGATOR_TYPE_TC) {
+      return this._getARNavigatorTC();
     } else if (this.props.selectNavigator === REACT_NATIVE_HOME) {
       return this._getReactNativeHome();
     } else if (this.props.selectNavigator === REACT_NATIVE_SIGNUP) {
@@ -220,6 +225,15 @@ class Login extends Component {
       <ViroARSceneNavigator
         {...this.state.sharedProps}
         initialScene={{ scene: InitialARScene }}
+      />
+    );
+  }
+
+  _getARNavigatorTC() {
+    return (
+      <ViroARSceneNavigator
+        {...this.state.sharedProps}
+        initialScene={{ scene: tcARscene }}
       />
     );
   }
