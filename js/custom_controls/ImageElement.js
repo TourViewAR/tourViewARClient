@@ -57,7 +57,7 @@ export default class ImageElement extends Component {
               height={1}
               opacity={0.0}
               scale={[.1,.1,.1]}
-              source={require(this.props.content)}
+              source={{uri: this.props.content}}
               animation={{ name:this.state.contentCardAnimation,
                            run : this.state.runInfoCardAnimation,
                            loop:false,

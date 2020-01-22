@@ -98,32 +98,6 @@ var styles = StyleSheet.create({
   }
 });
 
-ViroMaterials.createMaterials({
-  grid: {
-    diffuseTexture: require("./res/grid_bg.jpg")
-  }
-});
-
-ViroAnimations.registerAnimations({
-  rotate: {
-    properties: {
-      rotateY: "+=90"
-    },
-    duration: 250
-  }
-});
-
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     navigate: render => dispatch(navigate(render)),
-//     setUserName: name => dispatch(setUserName(name)),
-//     setUserPassword: password => dispatch(setUserPassword(password)),
-//     setUserProfilePic: pic => dispatch(setUserProfilePic(pic)),
-//     setUserId: id => dispatch(setUserId(id))
-//   };
-// };
-
 const mapStateToProps = state => {
   return {
     selectTourPicUrl: selectTourPicUrl(state),

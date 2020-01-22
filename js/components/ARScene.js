@@ -133,7 +133,7 @@ class ARScene extends Component {
                             }
                             return toRender;
                         })
-                    ) 
+                    )
                     : 
                     (
                         null
